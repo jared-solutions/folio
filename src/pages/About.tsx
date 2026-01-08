@@ -84,8 +84,9 @@ const About = () => {
                 </p>
                 
                 <div className="flex flex-wrap gap-4">
-                  <a 
-                    href="#" 
+                  <a
+                    href="/JARED MOGONCHI CV.docx"
+                    download="Jared_Mogonchi_CV.docx"
                     className="btn-gradient px-6 py-2 rounded-full font-medium inline-flex items-center"
                   >
                     <Download size={18} className="mr-2" /> Download CV

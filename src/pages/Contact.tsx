@@ -10,6 +10,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     subject: '',
     message: ''
   });
@@ -23,24 +24,43 @@ const Contact = () => {
     }));
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
+
+    try {
+      const response = await fetch('https://formspree.io/f/xjgknzgp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Message sent!",
+          description: "Thank you for your message. I'll get back to you soon.",
+        });
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
       toast({
-        title: "Message sent!",
-        description: "Thank you for your message. I'll get back to you soon.",
+        title: "Error",
+        description: "Failed to send message. Please try again or contact me directly.",
+        variant: "destructive",
       });
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
   
   return (
@@ -108,10 +128,15 @@ const Contact = () => {
               
               {/* Contact Form */}
               <div className="lg:col-span-2">
-                <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md">
+                <form
+                  action="https://formspree.io/f/xjgknzgp"
+                  method="POST"
+                  onSubmit={handleSubmit}
+                  className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md"
+                >
                   <h2 className="text-2xl font-bold text-portfolio-navy mb-6">Send Me a Message</h2>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                     <div>
                       <label htmlFor="name" className="block text-gray-700 mb-2">Name</label>
                       <input
@@ -127,7 +152,7 @@ const Contact = () => {
                     </div>
                     
                     <div>
-                      <label htmlFor="email" className="block text-gray-700 mb-2">Email</label>
+                      <label htmlFor="email" className="block text-gray-700 dark:text-gray-300 mb-2">Email</label>
                       <input
                         type="email"
                         id="email"
@@ -135,8 +160,22 @@ const Contact = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-portfolio-burgundy"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-portfolio-burgundy bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                         placeholder="Your email"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="phone" className="block text-gray-700 dark:text-gray-300 mb-2">Phone Number</label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-portfolio-burgundy bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        placeholder="Your phone number"
                       />
                     </div>
                   </div>

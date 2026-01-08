@@ -9,11 +9,19 @@ const Projects = () => {
   
   const projects = [
     {
-      id: 'cage-system',
-      title: 'Cage Management System',
-      description: 'An advanced system for managing livestock cages with tracking and analytics features. Includes inventory management, scheduling, and reporting capabilities.',
-      image: '/uploads/cage1.png', 
-      tags: ['React', 'Java', 'Mysql'],
+      id: 'omilife',
+      title: 'Omilife Healthcare Management System',
+      description: 'A comprehensive medicine supply and pharmacy management system for efficient drug distribution, inventory tracking, sales management, and supplier coordination.',
+      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=500',
+      tags: ['React', 'Django', 'MySQL', 'REST API'],
+      category: 'web'
+    },
+    {
+      id: 'mkulima',
+      title: '🐔 Complete Financial Management for Kenyan Poultry Farmers 🥚',
+      description: 'A comprehensive financial management system designed specifically for Kenyan poultry farmers. Includes expense tracking, income management, inventory control, and financial reporting.',
+      image: '/uploads/cageG1.png',
+      tags: ['React', 'PHP', 'MySQL', 'JavaScript'],
       category: 'web'
     },
     {

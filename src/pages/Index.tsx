@@ -11,11 +11,11 @@ import { Link } from 'react-router-dom';
 // Sample project data with technologies matching Jared's skills
 const featuredProjects = [
   {
-    id: 'cage-system',
-    title: 'Cage Management System',
-    description: 'An advanced system for managing layers chiken  with tracking and analytics features.',
-    image: '/uploads/cage1.png',
-    tags: ['React', 'Java', 'MySQL']
+    id: 'omilife',
+    title: 'Omilife Healthcare Management System',
+    description: 'A comprehensive medicine supply and pharmacy management system for efficient drug distribution, inventory tracking, sales management, and supplier coordination.',
+    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=500',
+    tags: ['React', 'Django', 'MySQL']
   },
   {
     id: 'rentconnect',
@@ -25,11 +25,11 @@ const featuredProjects = [
     tags: ['JavaScript', 'HTML/CSS', 'Python']
   },
   {
-    id: 'car-hire',
-    title: 'Car Hire Application',
-    description: 'A comprehensive car rental solution with booking, payment, and fleet management capabilities.',
-    image: 'https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=500',
-    tags: ['Java', 'C++', 'React Native']
+    id: 'mkulima',
+    title: '🐔 Complete Financial Management for Kenyan Poultry Farmers 🥚',
+    description: 'A comprehensive financial management system designed specifically for Kenyan poultry farmers.',
+    image: '/uploads/cageG1.png',
+    tags: ['React', 'PHP', 'MySQL', 'JavaScript']
   }
 ];
 
@@ -71,7 +71,7 @@ const Index: React.FC<IndexProps> = ({ guestName = 'My Guest' }) => {
   return (
     <>
       <Navbar />
-      <main className="bg-black text-white">
+      <main className="bg-background text-foreground">
         <HeroSection guestName={guestName} />
         
         <div className="text-center mb-16">
@@ -85,22 +85,22 @@ const Index: React.FC<IndexProps> = ({ guestName = 'My Guest' }) => {
         </div>
         
         {/* Skills Section */}
-        <section id="skills" className="section-padding bg-gray-900">
+        <section id="skills" className="section-padding bg-muted">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-white mb-4">My Expertise</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-4">My Expertise</h2>
               <div className="h-1 w-20 bg-green-500 mx-auto"></div>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {skills.map((skill, index) => (
-                <div 
-                  key={index} 
-                  className="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border border-gray-700"
+                <div
+                  key={index}
+                  className="bg-card p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border border-border"
                 >
                   <div className="text-green-500 mb-4">{skill.icon}</div>
-                  <h3 className="text-xl font-bold mb-3 text-white">{skill.title}</h3>
-                  <p className="text-gray-400">{skill.description}</p>
+                  <h3 className="text-xl font-bold mb-3 text-card-foreground">{skill.title}</h3>
+                  <p className="text-muted-foreground">{skill.description}</p>
                 </div>
               ))}
             </div>
@@ -108,12 +108,12 @@ const Index: React.FC<IndexProps> = ({ guestName = 'My Guest' }) => {
         </section>
         
         {/* Featured Projects Section */}
-        <section className="section-padding bg-black">
+        <section className="section-padding bg-background">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-white mb-4">Featured Projects</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-4">Featured Projects</h2>
               <div className="h-1 w-20 bg-green-500 mx-auto mb-4"></div>
-              <p className="text-gray-400 max-w-2xl mx-auto">
+              <p className="text-muted-foreground max-w-2xl mx-auto">
                 Explore some of my recent work. Each project represents unique challenges and solutions.
               </p>
             </div>
@@ -143,10 +143,10 @@ const Index: React.FC<IndexProps> = ({ guestName = 'My Guest' }) => {
         </section>
         
         {/* CTA Section */}
-        <section className="section-padding bg-gray-900 text-white">
+        <section className="section-padding bg-muted text-foreground">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Let's Work Together</h2>
-            <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
               I'm currently available for freelance projects, full-time positions, and consulting work.
               Let's create something amazing together!
             </p>

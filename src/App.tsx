@@ -4,10 +4,12 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "next-themes";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
+import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import LoadingScreen from "./components/LoadingScreen";
@@ -31,33 +33,36 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
 
-        {loading && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
+          {loading && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
 
-        {!loading && (
-          <>
-            <WelcomeDialog
-              open={showWelcome}
-              onOpenChange={setShowWelcome}
-              onGuestNameSet={handleGuestNameSet}
-            />
+          {!loading && (
+            <>
+              <WelcomeDialog
+                open={showWelcome}
+                onOpenChange={setShowWelcome}
+                onGuestNameSet={handleGuestNameSet}
+              />
 
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Index guestName={guestName} />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/projects/:id" element={<ProjectDetail />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </>
-        )}
-      </TooltipProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Index guestName={guestName} />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/projects" element={<Projects />} />
+                  <Route path="/projects/:id" element={<ProjectDetail />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </>
+          )}
+        </TooltipProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 };
