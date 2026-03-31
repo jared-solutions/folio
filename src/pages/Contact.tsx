@@ -120,7 +120,7 @@ const Contact = () => {
                     <img 
                       src="/uploads/image2.png" 
                       alt="Professional portrait" 
-                      className="rounded-lg w-full object-cover shadow"
+                      className="rounded-lg w-48 object-cover shadow"
                     />
                   </div>
                 </div>
@@ -146,7 +146,8 @@ const Contact = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-portfolio-burgundy"
+                        minLength={2}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                         placeholder="Your name"
                       />
                     </div>
@@ -174,7 +175,9 @@ const Contact = () => {
                         value={formData.phone}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-portfolio-burgundy bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        pattern="[0-9+\s\-]{10,}"
+                        minLength={10}
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                         placeholder="Your phone number"
                       />
                     </div>

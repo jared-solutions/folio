@@ -103,7 +103,7 @@ const Services = () => {
                     <ul className="space-y-2">
                       {service.features.map((feature, idx) => (
                         <li key={idx} className="flex items-center text-gray-600">
-                          <CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" />
+                          <CheckCircle size={16} className="text-green-600 mr-2 flex-shrink-0" />
                           {feature}
                         </li>
                       ))}

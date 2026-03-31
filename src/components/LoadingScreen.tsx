@@ -56,7 +56,7 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
       >
         <h1 className="text-5xl font-bold mb-3">
           <span className="text-white">Jared</span>
-          <span className="text-green-500">Mogonchi</span>
+          <span className="text-green-600">Mogonchi</span>
         </h1>
         <p className="text-gray-400 mb-8 text-lg">{getLoadingMessage()}</p>
 

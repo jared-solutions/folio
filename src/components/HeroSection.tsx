@@ -17,6 +17,11 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({ guestName = 'My Guest' }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [displayText, setDisplayText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+
+  const texts = ["Full-Stack Software Engineer", "Backend Engineer (Java & Spring Boot)"];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +32,38 @@ const HeroSection: React.FC<HeroSectionProps> = ({ guestName = 'My Guest' }) => 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Typewriter effect
+  useEffect(() => {
+    const currentText = texts[currentIndex];
+    
+    if (isTyping) {
+      if (displayText.length < currentText.length) {
+        const timeout = setTimeout(() => {
+          setDisplayText(currentText.slice(0, displayText.length + 1));
+        }, 100);
+        return () => clearTimeout(timeout);
+      } else {
+        // Pause after typing complete
+        const timeout = setTimeout(() => {
+          setIsTyping(false);
+        }, 2000);
+        return () => clearTimeout(timeout);
+      }
+    } else {
+      // Deleting effect
+      if (displayText.length > 0) {
+        const timeout = setTimeout(() => {
+          setDisplayText(displayText.slice(0, -1));
+        }, 50);
+        return () => clearTimeout(timeout);
+      } else {
+        // Move to next text
+        setCurrentIndex((prev) => (prev + 1) % texts.length);
+        setIsTyping(true);
+      }
+    }
+  }, [displayText, currentIndex, isTyping, texts]);
 
   return (
     <section className="relative min-h-screen flex items-center bg-black text-white overflow-hidden">
@@ -43,7 +80,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ guestName = 'My Guest' }) => 
       {/* Hero content */}
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 md:ml-auto md:pl-12 mb-10 md:mb-0 md:text-right">
+          <div className="w-full md:w-1/2 md:ml-auto md:pl-4 lg:pl-12 mb-8 md:mb-0 md:text-right px-2">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -55,7 +92,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ guestName = 'My Guest' }) => 
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
               >
-                Hello, <span className="text-green-500 font-bold">{guestName}</span>
+                Hello, <span className="text-green-600 font-bold">{guestName}</span>
               </motion.h2>
 
               <motion.div
@@ -63,39 +100,21 @@ const HeroSection: React.FC<HeroSectionProps> = ({ guestName = 'My Guest' }) => 
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
               >
-                <h3 className="text-xl mb-2">My name is</h3>
-                <h1 className="text-4xl lg:text-6xl font-bold mb-4">
-                  Jared <span className="text-green-500">Mogonchi</span>
+                <h3 className="text-xl mb-2 lg:mb-6">My name is</h3>
+                <h1 className="text-4xl lg:text-6xl font-bold mb-2 lg:mb-4">
+                  Jared <span className="text-green-600">Mogonchi</span>
                 </h1>
-                <h3 className="text-xl mb-6">And I'm a:</h3>
-                <div className="text-3xl font-bold mb-8 h-10">
-                  <motion.div
+                <h3 className="text-lg lg:text-xl mb-4 lg:mb-6">And I'm a:</h3>
+                <div className="text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 h-12 lg:h-10">
+                  <motion.span
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
-                    className="relative h-10"
+                    className="text-green-600"
                   >
-                    {["Software Engineer", "Web Developer", "PHP Developer", "JavaScript Expert"].map((text, index) => (
-                      <motion.p
-                        key={text}
-                        className={index === 0 ? "text-green-500" : index === 1 ? "text-blue-400" : index === 2 ? "text-yellow-400" : "text-purple-400"}
-                        initial={{ opacity: 0, y: 20, position: "absolute", top: 0, right: 0 }}
-                        animate={{
-                          opacity: [0, 1, 1, 0],
-                          y: [20, 0, 0, -20],
-                        }}
-                        transition={{
-                          times: [0, 0.1, 0.9, 1],
-                          duration: 4,
-                          delay: index * 4,
-                          repeat: Infinity,
-                          repeatDelay: 12,
-                        }}
-                      >
-                        {text}
-                      </motion.p>
-                    ))}
-                  </motion.div>
+                    {displayText}
+                    <span className="animate-pulse">|</span>
+                  </motion.span>
                 </div>
               </motion.div>
 
@@ -103,11 +122,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ guestName = 'My Guest' }) => 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.8 }}
-                className="mt-8"
+                className="mt-8 lg:mt-12"
               >
                 <Link
                   to="/contact"
-                  className="border border-green-500 text-green-500 hover:bg-green-500 hover:text-black transition-colors px-8 py-3 rounded-full font-medium inline-flex items-center justify-center"
+                  className="border border-green-600 text-green-600 hover:bg-green-600 hover:text-black transition-colors px-8 py-3 rounded-full font-medium inline-flex items-center justify-center"
                 >
                   Hire Me <ArrowDown size={18} className="ml-2" />
                 </Link>
@@ -130,34 +149,45 @@ const HeroSection: React.FC<HeroSectionProps> = ({ guestName = 'My Guest' }) => 
           {[
             {
               name: 'Facebook',
-              href: 'https://facebook.com/jaredmogonchi',
+              href: 'https://www.facebook.com/web.dev.578960?mibextid=rS40aB7S9Ucbxw6v',
               bg: 'bg-blue-600',
-              icon: <FaFacebook className="w-3 h-3" /> // Adjust icon size here
+              icon: <FaFacebook className="w-3 h-3" />
+            },
+            {
+              name: 'X (Twitter)',
+              href: 'https://x.com/JaredOmbongi1',
+              bg: 'bg-black',
+              icon: <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             },
             {
               name: 'Instagram',
-              href: 'https://instagram.com/jared_mogonchi',
+              href: 'https://www.instagram.com/thecodejar?igsh=MXRmMHIzdnRva2pscA==',
               bg: 'bg-gradient-to-tr from-purple-600 via-pink-500 to-orange-400',
-              icon: <FaInstagram className="w-3 h-3" /> // Adjust icon size here
+              icon: <FaInstagram className="w-3 h-3" />
             },
-           
             {
               name: 'LinkedIn',
-              href: 'https://linkedin.com/in/jaredmogonchi',
+              href: 'https://www.linkedin.com/in/jared-ombongi-b9187127b?utm_source=share_via&utm_content=profile&utm_medium=member_android',
               bg: 'bg-blue-700',
-              icon: <FaLinkedin className="w-3 h-3" /> // Adjust icon size here
+              icon: <FaLinkedin className="w-3 h-3" />
             },
             {
               name: 'GitHub',
-              href: 'https://github.com/jaredmogonchi',
+              href: 'https://github.com/jared-solutions',
               bg: 'bg-gray-800',
-              icon: <FaGithub className="w-3 h-3" /> // Adjust icon size here
+              icon: <FaGithub className="w-3 h-3" />
+            },
+            {
+              name: 'TikTok',
+              href: 'https://www.tiktok.com/@code.jar',
+              bg: 'bg-black',
+              icon: <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
             },
             {
               name: 'WhatsApp',
-              href: 'https://wa.me/254710464858', // Replace with your number
-              bg: 'bg-green-500',
-              icon: <FaWhatsapp className="w-3 h-3" /> // Adjust icon size here
+              href: 'https://wa.me/254710464858',
+              bg: 'bg-green-600',
+              icon: <FaWhatsapp className="w-3 h-3" />
             }
           ].map((icon, i) => (
             <motion.a

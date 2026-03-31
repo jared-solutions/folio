@@ -24,6 +24,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <img 
           src={image} 
           alt={title} 
+          loading="lazy"
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
         />
       </div>
@@ -32,17 +33,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           {tags.map((tag, index) => (
             <span 
               key={index} 
-              className="text-xs font-medium px-2 py-1 rounded-full bg-gray-100 text-portfolio-navy"
+              className="text-xs font-medium px-2 py-1 rounded-full bg-green-100 text-green-700"
             >
               {tag}
             </span>
           ))}
         </div>
-        <h3 className="text-xl font-bold mb-2 text-portfolio-navy">{title}</h3>
+        <h3 className="text-xl font-bold mb-2 text-gray-800">{title}</h3>
         <p className="text-gray-600 mb-4 line-clamp-2">{description}</p>
         <Link 
           to={`/projects/${id}`} 
-          className="inline-flex items-center text-portfolio-burgundy font-medium hover:underline"
+          className="inline-flex items-center text-green-600 font-medium hover:underline"
         >
           View Project <ArrowRight size={16} className="ml-1" />
         </Link>

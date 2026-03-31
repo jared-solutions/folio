@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import ScrollToTop from '../components/ScrollToTop';
+import { motion } from 'framer-motion';
 
 interface ProjectData {
   id: string;
@@ -89,7 +90,7 @@ const ProjectDetail = () => {
         'RESTful API architecture',
         'Secure authentication and data validation'
       ],
-      demoUrl: 'https://mkulima-00-afex7yfau-jareds-projects-118e8880.vercel.app/',
+      demoUrl: 'https://eggcellent-sales.onrender.com/',
       githubUrl: 'https://github.com/jared-solutions/mkulima',
       gallery: [
         'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800',
@@ -284,7 +285,7 @@ const ProjectDetail = () => {
         <main className="pt-20 min-h-screen bg-background text-foreground">
           <div className="container mx-auto px-4 py-12">
             <div className="flex justify-center items-center h-64">
-              <div className="animate-pulse text-green-500">Loading project details...</div>
+              <div className="animate-pulse text-green-600">Loading project details...</div>
             </div>
           </div>
         </main>
@@ -304,7 +305,7 @@ const ProjectDetail = () => {
               <p className="text-muted-foreground mb-8">The project you're looking for doesn't exist or has been removed.</p>
               <Link 
                 to="/projects" 
-                className="bg-green-500 hover:bg-green-600 text-black px-6 py-2 rounded-full font-medium inline-flex items-center"
+                className="bg-green-600 hover:bg-green-700 text-black px-6 py-2 rounded-full font-medium inline-flex items-center"
               >
                 <ArrowLeft size={18} className="mr-2" /> Back to Projects
               </Link>
@@ -328,17 +329,32 @@ const ProjectDetail = () => {
           <div className="absolute inset-0 bg-black/70"></div>
           <div className="absolute inset-0 flex items-center">
             <div className="container mx-auto px-4">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">{project.title}</h1>
-              <div className="flex flex-wrap gap-2 mb-6">
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
+              >
+                {project.title}
+              </motion.h1>
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="flex flex-wrap gap-2 mb-6"
+              >
                 {project.tags.map((tag, index) => (
-                  <span 
+                  <motion.span 
                     key={index} 
-                    className="text-sm font-medium px-3 py-1 rounded-full bg-green-500/20 text-green-400 backdrop-blur-sm"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.3 + index * 0.1 }}
+                    className="text-sm font-medium px-3 py-1 rounded-full bg-green-600/20 text-green-400 backdrop-blur-sm"
                   >
                     {tag}
-                  </span>
+                  </motion.span>
                 ))}
-              </div>
+              </motion.div>
               <p className="text-xl text-white/90 max-w-3xl">{project.description}</p>
             </div>
           </div>
@@ -361,13 +377,21 @@ const ProjectDetail = () => {
                     <h2 className="text-3xl font-bold text-foreground mb-6">Gallery</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {project.gallery.map((image, index) => (
-                        <div key={index} className="rounded-lg overflow-hidden shadow-md">
+                        <motion.div 
+                          key={index} 
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: 0.1 * index }}
+                          whileHover={{ scale: 1.02 }}
+                          className="rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all"
+                        >
                           <img
                             src={image}
                             alt={`${project.title} screenshot ${index + 1}`}
+                            loading="lazy"
                             className="w-full h-auto"
                           />
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
                   </div>
@@ -400,7 +424,7 @@ const ProjectDetail = () => {
                     {/* Project Status */}
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-medium text-card-foreground">Status</span>
-                      <span className="px-3 py-1 text-xs font-medium rounded-full bg-green-500/20 text-green-400">
+                      <span className="px-3 py-1 text-xs font-medium rounded-full bg-green-600/20 text-green-400">
                         Completed
                       </span>
                     </div>
@@ -412,7 +436,7 @@ const ProjectDetail = () => {
                           href={project.demoUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="bg-green-500 hover:bg-green-600 w-full py-3 rounded-lg font-medium inline-flex items-center justify-center text-black transition-colors"
+                          className="bg-green-600 hover:bg-green-700 w-full py-3 rounded-lg font-medium inline-flex items-center justify-center text-black transition-colors"
                         >
                           <ExternalLink size={18} className="mr-2" />
                           Live Demo
@@ -441,7 +465,7 @@ const ProjectDetail = () => {
             <div className="mt-16 text-center">
               <Link 
                 to="/projects" 
-                className="bg-green-500 hover:bg-green-600 px-8 py-3 rounded-full font-medium inline-flex items-center text-black"
+                className="bg-green-600 hover:bg-green-700 px-8 py-3 rounded-full font-medium inline-flex items-center text-black"
               >
                 <ArrowLeft size={18} className="mr-2" /> Back to Projects
               </Link>
