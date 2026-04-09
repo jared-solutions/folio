@@ -70,7 +70,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ guestName = 'My Guest' }) => 
       {/* Background image with overlay */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/uploads/image2.png"
+          src="/uploads/jar.jpeg"
           alt="Jared Mogonchi"
           className="w-full h-full object-cover"
         />
