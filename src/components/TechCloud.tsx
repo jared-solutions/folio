@@ -24,12 +24,12 @@ const TechCloud = () => {
               y: [0, yOffset, 0] 
             }}
             transition={{
-              opacity: { duration: 0.5, delay: index * 0.05 },
+              opacity: { duration: 0.2, delay: index * 0.01 },
               y: {
                 duration: duration,
                 repeat: Infinity,
                 ease: "easeInOut",
-                delay: index * 0.1
+                delay: index * 0.05
               }
             }}
             whileHover={{ scale: 1.1, backgroundColor: "#16a34a", color: "#ffffff" }}
