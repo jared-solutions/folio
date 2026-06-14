@@ -40,7 +40,7 @@ const Navbar = () => {
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 dark:bg-gray-900/90 shadow-md backdrop-blur-md py-3' : 'bg-transparent py-5'}`}>
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold text-portfolio-burgundy">
+        <Link to="/" className="text-2xl font-bold text-green-600">
           Jaredfolio
         </Link>
         
@@ -50,7 +50,7 @@ const Navbar = () => {
             <Link
               key={link.name}
               to={link.path}
-              className="link-underline font-medium text-gray-700 hover:text-portfolio-burgundy dark:text-gray-300 dark:hover:text-portfolio-gold"
+              className="link-underline font-medium text-gray-700 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400"
             >
               {link.name}
             </Link>
@@ -75,7 +75,7 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 to={link.path}
-                className="font-medium text-gray-700 dark:text-gray-300 hover:text-portfolio-burgundy dark:hover:text-portfolio-gold py-2 px-4 hover:bg-gray-50 dark:hover:bg-gray-700 rounded"
+                className="font-medium text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 py-2 px-4 hover:bg-gray-50 dark:hover:bg-gray-700 rounded"
                 onClick={toggleMenu}
               >
                 {link.name}

@@ -21,7 +21,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ guestName = 'My Guest' }) => 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
 
-  const texts = ["Full-Stack Software Engineer", "Backend Engineer (Java & Spring Boot)"];
+  const texts = ["Full-Stack Software Engineer & Backend Specialist", "Building scalable, secure, and high-performance applications that drive business growth."];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -102,10 +102,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ guestName = 'My Guest' }) => 
               >
                 <h3 className="text-xl mb-2 lg:mb-6">My name is</h3>
                 <h1 className="text-4xl lg:text-6xl font-bold mb-2 lg:mb-4">
-                  Jared <span className="text-green-600">Mogonchi</span>
+                  Mogonchi <span className="text-green-600">Jared</span>
                 </h1>
                 <h3 className="text-lg lg:text-xl mb-4 lg:mb-6">And I'm a:</h3>
-                <div className="text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 h-12 lg:h-10">
+                <div className="text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 min-h-[6rem] lg:min-h-[8rem]">
                   <motion.span
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}

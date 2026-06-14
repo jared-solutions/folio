@@ -25,7 +25,7 @@ const featuredProjects = [
   },
   {
     id: 'mkulima',
-    title: '🐔 Complete Financial Management for Kenyan Poultry Farmers 🥚',
+    title: 'Complete Financial Management for Kenyan Poultry Farmers',
     description: 'A comprehensive financial management system designed specifically for Kenyan poultry farmers.',
     image: '/uploads/cageG1.png',
     tags: ['React.js', 'Django', 'MySQL', 'REST API', 'M-Pesa']
@@ -84,10 +84,10 @@ const Index: React.FC<IndexProps> = ({ guestName = 'My Guest' }) => {
         </div>
         
         {/* Skills Section */}
-        <section id="skills" className="section-padding bg-gradient-to-br from-gray-50 to-white">
+        <section id="skills" className="section-padding bg-gradient-to-br from-gray-50 to-white dark:from-slate-900 dark:to-slate-800">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-slate-800 mb-4">My Expertise</h2>
+              <h2 className="text-3xl font-bold text-slate-800 dark:text-white mb-4">My Expertise</h2>
               <div className="h-1 w-20 bg-green-600 mx-auto"></div>
             </div>
 
@@ -126,6 +126,8 @@ const Index: React.FC<IndexProps> = ({ guestName = 'My Guest' }) => {
                   description={project.description}
                   image={project.image}
                   tags={project.tags}
+                  performance={project.id === 'omilife' ? 98 : project.id === 'rentconnect' ? 96 : 99}
+                  seo={project.id === 'mkulima' ? 98 : 100}
                 />
               ))}
             </div>
@@ -142,7 +144,7 @@ const Index: React.FC<IndexProps> = ({ guestName = 'My Guest' }) => {
         </section>
         
         {/* CTA Section */}
-        <section className="section-padding bg-gradient-to-br from-gray-50 to-white text-foreground">
+        <section className="section-padding bg-gradient-to-br from-gray-50 to-white dark:from-slate-900 dark:to-slate-800 text-foreground">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Let's Work Together</h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">

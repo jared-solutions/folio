@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import TechCloud from '../components/TechCloud';
 import { Download, Briefcase, GraduationCap } from 'lucide-react';
 
 const About = () => {
@@ -55,27 +56,14 @@ const About = () => {
     }
   ];
 
-  // const education = [
-    // {
-    //   degree: 'Diploma in Information Technology',
-    //   institution: 'Kasarani KTVC',
-    //   period: '2022 - 2025',
-    //   description: 'Specialized in software engineering with focus on web technologies and databases.'
-    // },
-    // {
-    //   degree: 'Full Stack Software Engineering',
-    //   institution: 'Moringa School',
-    //   period: '2024',
-    //   description: 'Intensive bootcamp covering modern web development technologies and practices.'
-    // }
-    // ];
+
 
   return (
     <>
       <Navbar />
       <main className="pt-20">
         {/* About Hero */}
-        <section className="section-padding bg-gradient-to-br from-gray-50 to-white">
+        <section className="section-padding bg-gradient-to-br from-gray-50 to-white dark:from-slate-900 dark:to-slate-800">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
               <div className="w-full md:w-2/5 max-w-sm mx-auto md:mx-0">
@@ -87,14 +75,14 @@ const About = () => {
               </div>
               
               <div className="md:w-3/5">
-                <h1 className="text-3xl md:text-4xl font-bold mb-4 text-slate-800">About Me</h1>
+                <h1 className="text-3xl md:text-4xl font-bold mb-4 text-slate-800 dark:text-white">About Me</h1>
                 <div className="h-1 w-20 bg-green-600 mb-6"></div>
                 
-                <p className="text-gray-700 mb-4">
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
                   I am Jared Mogonchi, a Full-Stack Software Engineer based in Nairobi, Kenya, with experience building secure, scalable, and production-ready systems across healthcare and business platforms.
                 </p>
                 
-                <p className="text-gray-700 mb-6">
+                <p className="text-gray-700 dark:text-gray-300 mb-6">
                   I specialize in backend development using Spring Boot, Django, and Node.js, designing REST APIs, implementing authentication systems, and optimizing applications for multi-user environments. I have contributed to real-world platforms, including a healthcare system at MedicinaChain, where I work on backend services, system monitoring, and performance improvements. In addition to my professional experience, I have developed and deployed multiple full-stack solutions such as rental management systems, POS and inventory platforms, and business automation tools. I focus on building reliable systems that solve real operational problems while maintaining performance, security, and scalability.
                 </p>
                 
@@ -114,23 +102,25 @@ const About = () => {
         </section>
         
         {/* Skills Section */}
-        <section className="section-padding bg-gradient-to-br from-gray-50 to-white">
+        <section className="section-padding bg-gradient-to-br from-gray-50 to-white dark:from-slate-900 dark:to-slate-800">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-slate-800 mb-4">Technical Skills</h2>
+              <h2 className="text-3xl font-bold text-slate-800 dark:text-white mb-4">Technical Skills</h2>
               <div className="h-1 w-20 bg-green-600 mx-auto"></div>
             </div>
+            
+            <TechCloud />
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {skills.map((skill, index) => (
                 <div 
                   key={index} 
-                  className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl hover:border-green-600 transition-all duration-300 transform hover:-translate-y-1"
+                  className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 hover:shadow-xl hover:border-green-600 transition-all duration-300 transform hover:-translate-y-1"
                 >
-                  <h3 className="text-lg font-bold text-green-700 mb-4 border-b border-gray-100 pb-2">{skill.name}</h3>
+                  <h3 className="text-lg font-bold text-green-700 mb-4 border-b border-gray-100 dark:border-slate-700 pb-2">{skill.name}</h3>
                   <ul className="space-y-2">
                     {skill.items.map((item, itemIndex) => (
-                      <li key={itemIndex} className="text-slate-600 text-sm flex items-start">
+                      <li key={itemIndex} className="text-slate-600 dark:text-gray-400 text-sm flex items-start">
                         <span className="w-1.5 h-1.5 bg-green-600 rounded-full mt-2 mr-2 flex-shrink-0"></span>
                         <span>{item}</span>
                       </li>
@@ -143,21 +133,21 @@ const About = () => {
         </section>
         
         {/* Experience Section */}
-        <section className="section-padding bg-gradient-to-br from-gray-50 to-white">
+        <section className="section-padding bg-gradient-to-br from-gray-50 to-white dark:from-slate-900 dark:to-slate-800">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-slate-800 mb-4">Work Experience</h2>
+              <h2 className="text-3xl font-bold text-slate-800 dark:text-white mb-4">Work Experience</h2>
               <div className="h-1 w-20 bg-green-600 mx-auto"></div>
             </div>
             
             <div className="max-w-3xl mx-auto space-y-8">
               {experiences.map((exp, index) => (
-                <div key={index} className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:border-green-600">
+                <div key={index} className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 hover:shadow-xl transition-all duration-300 hover:border-green-600">
                   <div className="absolute -left-3 top-6 w-6 h-6 rounded-full bg-green-600 text-white flex items-center justify-center">
                     <Briefcase size={14} />
                   </div>
                   <div className="border-l-2 border-green-600 pl-6 ml-0">
-                    <h3 className="text-xl font-bold text-slate-800">{exp.title}</h3>
+                    <h3 className="text-xl font-bold text-slate-800 dark:text-white">{exp.title}</h3>
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-green-700 font-medium">{exp.company}</span>
                       <span className="text-sm text-gray-500">{exp.location}</span>
@@ -165,7 +155,7 @@ const About = () => {
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm text-gray-500">{exp.period}</span>
                     </div>
-                    <p className="text-gray-600">{exp.description}</p>
+                    <p className="text-gray-600 dark:text-gray-400">{exp.description}</p>
                   </div>
                 </div>
               ))}
@@ -173,33 +163,7 @@ const About = () => {
           </div>
         </section>
         
-        {/* Education Section */}
-        {/* <section className="section-padding">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-portfolio-navy mb-4">Education</h2>
-              <div className="h-1 w-20 bg-portfolio-burgundy mx-auto"></div>
-            </div>
-            
-            <div className="max-w-3xl mx-auto space-y-8">
-              {education.map((edu, index) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-md relative">
-                  <div className="absolute -left-3 top-6 w-6 h-6 rounded-full bg-portfolio-burgundy text-white flex items-center justify-center">
-                    <GraduationCap size={14} />
-                  </div>
-                  <div className="border-l-2 border-portfolio-burgundy pl-6 ml-0">
-                    <h3 className="text-xl font-bold text-portfolio-navy">{edu.degree}</h3>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-portfolio-burgundy font-medium">{edu.institution}</span>
-                      <span className="text-sm text-gray-500">{edu.period}</span>
-                    </div>
-                    <p className="text-gray-600">{edu.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section> */}
+
       </main>
       <Footer />
     </>

@@ -17,7 +17,7 @@ const Projects = () => {
     },
     {
       id: 'mkulima',
-      title: '🐔 Complete Financial Management for Kenyan Poultry Farmers 🥚',
+      title: 'Complete Financial Management for Kenyan Poultry Farmers',
       description: 'A comprehensive financial management system designed specifically for Kenyan poultry farmers. Includes expense tracking, income management, inventory control, and financial reporting.',
       image: '/uploads/cageG1.png',
       tags: ['React.js', 'Django', 'MySQL', 'REST API', 'M-Pesa'],
@@ -76,9 +76,9 @@ const Projects = () => {
         <section className="section-padding">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h1 className="text-4xl font-bold text-slate-800 mb-4">My Projects</h1>
+              <h1 className="text-4xl font-bold text-slate-800 dark:text-white mb-4">My Projects</h1>
               <div className="h-1 w-20 bg-green-600 mx-auto mb-4"></div>
-              <p className="text-slate-600 max-w-2xl mx-auto">
+              <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
                 Here are some of the projects I've worked on, showcasing my expertise in full-stack development.
               </p>
             </div>
@@ -92,7 +92,7 @@ const Projects = () => {
                   className={`px-6 py-2 rounded-full font-medium transition-colors ${
                     filter === filterOption
                       ? 'bg-green-600 text-white'
-                      : 'bg-gray-100 text-slate-700 hover:bg-gray-200'
+                      : 'bg-gray-100 text-slate-700 dark:text-gray-200 hover:bg-gray-200'
                   }`}
                 >
                   {filterOption === 'all' ? 'All Projects' : 
@@ -111,6 +111,8 @@ const Projects = () => {
                   description={project.description}
                   image={project.image}
                   tags={project.tags}
+                  performance={project.id === 'omilife' ? 98 : project.id === 'rentconnect' ? 96 : project.id === 'gym-system' ? 95 : 99}
+                  seo={project.id === 'mkulima' ? 98 : project.id === 'spa-salon' ? 97 : 100}
                 />
               ))}
             </div>
