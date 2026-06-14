@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProjectCard from '../components/ProjectCard';
@@ -115,6 +117,20 @@ const Projects = () => {
                   seo={project.id === 'mkulima' ? 98 : project.id === 'spa-salon' ? 97 : 100}
                 />
               ))}
+            </div>
+
+            {/* CTA Section */}
+            <div className="mt-20 bg-green-600 rounded-2xl p-8 md:p-12 text-center text-white shadow-xl">
+              <h2 className="text-3xl font-bold mb-4">Impressed by my work?</h2>
+              <p className="text-green-100 mb-8 max-w-2xl mx-auto text-lg">
+                Whether you need a full-stack application, an API integration, or a secure backend system, I'm ready to bring your vision to life.
+              </p>
+              <Link 
+                to="/contact" 
+                className="inline-flex items-center bg-white text-green-700 hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition-colors text-lg"
+              >
+                Let's Build Something <ArrowRight className="ml-2" size={20} />
+              </Link>
             </div>
           </div>
         </section>
