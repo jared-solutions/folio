@@ -111,16 +111,16 @@ const About = () => {
             
             <TechCloud />
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
               {skills.map((skill, index) => (
                 <div 
                   key={index} 
-                  className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 hover:shadow-xl hover:border-green-600 transition-all duration-300 transform hover:-translate-y-1"
+                  className="bg-white dark:bg-slate-800 p-4 sm:p-6 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 hover:shadow-xl hover:border-green-600 transition-all duration-300 transform hover:-translate-y-1"
                 >
-                  <h3 className="text-lg font-bold text-green-700 mb-4 border-b border-gray-100 dark:border-slate-700 pb-2">{skill.name}</h3>
+                  <h3 className="text-sm sm:text-lg font-bold text-green-700 mb-4 border-b border-gray-100 dark:border-slate-700 pb-2">{skill.name}</h3>
                   <ul className="space-y-2">
                     {skill.items.map((item, itemIndex) => (
-                      <li key={itemIndex} className="text-slate-600 dark:text-gray-400 text-sm flex items-start">
+                      <li key={itemIndex} className="text-slate-600 dark:text-gray-400 text-xs sm:text-sm flex items-start">
                         <span className="w-1.5 h-1.5 bg-green-600 rounded-full mt-2 mr-2 flex-shrink-0"></span>
                         <span>{item}</span>
                       </li>

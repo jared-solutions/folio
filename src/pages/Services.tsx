@@ -1,8 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Code, Smartphone, Server, Users, CheckCircle, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 const Services = () => {
   const services = [
@@ -91,12 +91,12 @@ const Services = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-8">
               {services.map((service, index) => (
-                <div key={index} className="bg-white dark:bg-slate-800 p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow border border-gray-100 dark:border-slate-700">
-                  <div className="text-green-600 mb-4">{service.icon}</div>
-                  <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-3">{service.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-6">{service.description}</p>
+                <div key={index} className="bg-white dark:bg-slate-800 p-4 sm:p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow border border-gray-100 dark:border-slate-700 flex flex-col h-full">
+                  <div className="text-green-600 mb-2 sm:mb-4 shrink-0 [&>svg]:w-6 [&>svg]:h-6 sm:[&>svg]:w-8 sm:[&>svg]:h-8">{service.icon}</div>
+                  <h3 className="text-sm sm:text-xl font-bold mb-2 sm:mb-3 text-slate-800 dark:text-white line-clamp-2 shrink-0">{service.title}</h3>
+                  <p className="text-xs sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6 line-clamp-3">{service.description}</p>
 
                   <div className="mb-6">
                     <h4 className="font-semibold text-slate-800 dark:text-white mb-3">What's Included:</h4>
@@ -110,9 +110,14 @@ const Services = () => {
                     </ul>
                   </div>
 
-                  <div className="border-t pt-4">
-                    <p className="text-sm text-gray-500">Pricing:</p>
-                    <p className="text-2xl font-bold text-green-600">{service.priceRange}</p>
+                  <div className="border-t border-gray-100 dark:border-slate-700 pt-4 flex flex-col gap-3">
+                    <div>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Pricing:</p>
+                      <p className="text-xl sm:text-2xl font-bold text-green-600">Tailored Quote</p>
+                    </div>
+                    <Link to={`/contact?subject=${encodeURIComponent('Quote for ' + service.title)}`} className="inline-block text-center bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded transition-colors w-full">
+                      Get a Quote
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -131,7 +136,7 @@ const Services = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8">
               {process.map((item, index) => (
                 <div key={index} className="text-center">
                   <div className="w-16 h-16 bg-green-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">

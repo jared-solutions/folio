@@ -91,15 +91,15 @@ const Index: React.FC<IndexProps> = ({ guestName = 'My Guest' }) => {
               <div className="h-1 w-20 bg-green-600 mx-auto"></div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8">
               {skills.map((skill, index) => (
                 <div
                   key={index}
-                  className="bg-card p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border border-border"
+                  className="bg-card p-4 sm:p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border border-border h-full flex flex-col overflow-hidden"
                 >
-                  <div className="text-green-600 mb-4">{skill.icon}</div>
-                  <h3 className="text-xl font-bold mb-3 text-card-foreground">{skill.title}</h3>
-                  <p className="text-muted-foreground">{skill.description}</p>
+                  <div className="text-green-600 mb-2 sm:mb-4 shrink-0 [&>svg]:w-6 [&>svg]:h-6 sm:[&>svg]:w-8 sm:[&>svg]:h-8">{skill.icon}</div>
+                  <h3 className="text-sm sm:text-xl font-bold mb-1 sm:mb-3 text-card-foreground line-clamp-2 shrink-0">{skill.title}</h3>
+                  <p className="text-xs sm:text-base text-muted-foreground overflow-hidden text-ellipsis line-clamp-4">{skill.description}</p>
                 </div>
               ))}
             </div>
@@ -117,7 +117,7 @@ const Index: React.FC<IndexProps> = ({ guestName = 'My Guest' }) => {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
               {featuredProjects.map((project) => (
                 <ProjectCard 
                   key={project.id}
