@@ -54,7 +54,7 @@ const About = () => {
         company: 'Nairobi County Government – City Hall',
         location: 'Nairobi, Kenya',
         period: 'May 2024 – Aug 2024',
-        description: 'Provided technical system support for county offices and hospital county facilities. Configured and maintained network infrastructure including routers, switches, and wireless access points. Performed server maintenance, updates, and troubleshooting. Assisted the digital communications team in designing promotional materials, event programs, and digital magazine content for official county functions and public engagement initiatives. Gained hands-on experience with government IT infrastructure and workflow optimization.',
+        description: 'Provided technical system support for county offices and hospital county facilities. Configured and maintained network infrastructure including routers, switches, and wireless access points. Performed server maintenance, updates, and troubleshooting. Assisted the digital communications team in designing promotional materials, event programs, and digital magazine content for official county functions and public engagement initiatives, including the monthly county magazine. Gained hands-on experience with government IT infrastructure and workflow optimization.',
         techStack: 'Windows OS, Active Directory, Networking (TCP/IP/DNS/DHCP), Linux Basics, Office 365, Hardware Troubleshooting'
       }
    ];
