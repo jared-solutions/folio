@@ -12,28 +12,28 @@ const TechCloud = () => {
     <div className="flex flex-wrap justify-center gap-4 py-12 max-w-4xl mx-auto">
       {techStack.map((tech, index) => {
         // Generate consistent random values based on index to avoid hydration mismatch
-        const duration = 3 + (index % 3);
-        const yOffset = -5 - (index % 10);
+        const duration = 4 + (index % 2); // Reduced duration range
+        const yOffset = -3 - (index % 5); // Reduced yOffset range
         
         return (
           <motion.div
             key={tech}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ 
               opacity: 1, 
               y: [0, yOffset, 0] 
             }}
             transition={{
-              opacity: { duration: 0.2, delay: index * 0.01 },
+              opacity: { duration: 0.3, delay: index * 0.02 },
               y: {
                 duration: duration,
                 repeat: Infinity,
                 ease: "easeInOut",
-                delay: index * 0.05
+                delay: index * 0.1
               }
             }}
-            whileHover={{ scale: 1.1, backgroundColor: "#16a34a", color: "#ffffff" }}
-            className="px-6 py-3 bg-white dark:bg-slate-800 rounded-full shadow-lg border border-gray-100 dark:border-slate-700 font-semibold text-slate-700 dark:text-gray-200 cursor-pointer"
+            whileHover={{ scale: 1.05, backgroundColor: "#16a34a", color: "#ffffff" }}
+            className="px-4 py-2 bg-white dark:bg-slate-800 rounded-full shadow-lg border border-gray-100 dark:border-slate-700 font-semibold text-slate-700 dark:text-gray-200 cursor-pointer"
           >
             {tech}
           </motion.div>

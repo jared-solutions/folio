@@ -17,24 +17,27 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
   };
 
   useEffect(() => {
+    // Simulate loading progress with smoother increments
     const timer = setInterval(() => {
       setProgress(prev => {
-        const newProgress = prev + Math.floor(Math.random() * 5) + 1;
+        // Smaller increments for smoother animation
+        const increment = Math.floor(Math.random() * 3) + 1;
+        const newProgress = prev + increment;
         if (newProgress >= 100) {
           clearInterval(timer);
           setTimeout(() => {
             onLoadingComplete();
-          }, 1000); // Wait 1s after reaching 100% before completing
+          }, 500); // Reduced wait time
           return 100;
         }
         return newProgress;
       });
-    }, 200);
+    }, 300); // Slightly slower interval for less CPU usage
 
-    // Change color every 0.5 seconds
+    // Change color less frequently
     const colorTimer = setInterval(() => {
       setColor(colors[Math.floor(Math.random() * colors.length)]);
-    }, 500);
+    }, 1500); // Changed from 500ms to 1500ms
 
     return () => {
       clearInterval(timer);
@@ -116,9 +119,9 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
                 y: [10, 0, 0, -10]
               }}
               transition={{
-                duration: 3,
+                duration: 4,
                 repeat: Infinity,
-                repeatDelay: 0.5
+                repeatDelay: 1
               }}
               className="text-gray-300"
             >
