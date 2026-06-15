@@ -158,14 +158,14 @@ const About = () => {
                      <div className="flex justify-between items-center mb-4">
                        <span className="text-sm text-gray-500">{exp.period}</span>
                      </div>
-                     <ul className="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1.5 mb-3">
-                       {exp.description
-                         .split('.')
-                         .filter((s) => s.trim() !== '')
-                         .map((sentence, i) => (
-                           <li key={i} className="text-sm sm:text-base">{sentence.trim()}</li>
-                         ))}
-                     </ul>
+                      <ul className="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1.5 mb-3">
+                        {exp.description
+                          .split('. ')
+                          .filter((s) => s.trim() !== '')
+                          .map((sentence, i) => (
+                            <li key={i} className="text-sm sm:text-base">{sentence.trim()}</li>
+                          ))}
+                      </ul>
                      {exp.techStack && (
                        <p className="text-sm font-semibold text-green-700 dark:text-green-500 mt-2 border-t border-gray-100 dark:border-slate-700 pt-2">
                          Tech Stack: <span className="font-normal text-gray-600 dark:text-gray-400">{exp.techStack}</span>
