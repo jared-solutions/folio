@@ -32,29 +32,32 @@ const About = () => {
     }
   ];
 
-  const experiences = [
-    {
-      title: 'Full-Stack Developer',
-      company: 'MedicinaChain – HealthTech Startup',
-      location: 'Nairobi, Kenya',
-      period: 'Jan 2026 – Present',
-      description: 'Contribute to development of a secure healthcare platform connecting patients, providers, and pharmacies. Build responsive frontend modules using React.js. Design and implement RESTful APIs using Spring Boot, Django, and Node.js. Implement JWT-based authentication and role-based access control. Optimize backend performance for multi-user environments. Develop Python-based log monitoring tools for proactive error detection. Support production deployment, SSL configuration, and Linux server maintenance. Debug production issues and improve system reliability. Tech Stack: React.js, Django, Spring Boot, Node.js, MySQL, JWT, Linux.'
-    },
-    {
-      title: 'Independent Full-Stack Developer',
-      company: 'Freelance & Contract Projects',
-      location: 'Remote – Kenya & International',
-      period: 'Jan 2023 – Oct 2025',
-      description: 'NyumbaLink – Rental Management Platform: Architected and developed a full property management system. Implemented role-based access control and secure REST APIs. Omilife Web Platform: Built a production-ready e-commerce and automation platform. Developed authentication systems and automated workflows. Created REST APIs for internal and third-party integrations. Hardware Store POS & Inventory Management System: Engineered an offline-first POS with inventory tracking and stock automation. Integrated M-Pesa Till payment verification for transaction reconciliation. Implemented multi-branch reporting, user roles, and audit logging. Tech Stack: React.js, Django, Node.js, Python, MySQL, REST APIs.'
-    },
-    {
-      title: 'IT Support Intern',
-      company: 'Nairobi County Government – City Hall',
-      location: 'Nairobi, Kenya',
-      period: 'May 2024 – Aug 2024',
-      description: 'Provided technical system support for county operations. Assisted the digital communications team in designing promotional materials, event programs, and digital magazine content for official county functions and public engagement initiatives. Gained hands-on experience with government IT infrastructure and workflow optimization.'
-    }
-  ];
+   const experiences = [
+     {
+       title: 'Full-Stack Developer',
+       company: 'MedicinaChain – HealthTech Startup',
+       location: 'Nairobi, Kenya',
+       period: 'Jan 2026 – Present',
+       description: 'Contribute to development of a secure healthcare platform connecting patients, providers, and pharmacies. Build responsive frontend modules using React.js. Design and implement RESTful APIs using Spring Boot, Django, and Node.js. Implement JWT-based authentication and role-based access control. Optimize backend performance for multi-user environments. Develop Python-based log monitoring tools for proactive error detection. Support production deployment, SSL configuration, and Linux server maintenance. Debug production issues and improve system reliability.',
+       techStack: 'React.js, Django, Spring Boot, Node.js, MySQL, JWT, Linux'
+     },
+     {
+       title: 'Independent Full-Stack Developer',
+       company: 'Freelance & Contract Projects',
+       location: 'Remote – Kenya & International',
+       period: 'Jan 2023 – Oct 2025',
+       description: 'NyumbaLink – Rental Management Platform: Architected and developed a full property management system. Implemented role-based access control and secure REST APIs. Omilife Web Platform: Built a production-ready e-commerce and automation platform. Developed authentication systems and automated workflows. Created REST APIs for internal and third-party integrations. Hardware Store POS & Inventory Management System: Engineered an offline-first POS with inventory tracking and stock automation. Integrated M-Pesa Till payment verification for transaction reconciliation. Implemented multi-branch reporting, user roles, and audit logging.',
+       techStack: 'React.js, Django, Node.js, Python, MySQL, REST APIs'
+     },
+     {
+       title: 'IT Support Intern',
+       company: 'Nairobi County Government – City Hall',
+       location: 'Nairobi, Kenya',
+       period: 'May 2024 – Aug 2024',
+       description: 'Provided technical system support for county operations. Assisted the digital communications team in designing promotional materials, event programs, and digital magazine content for official county functions and public engagement initiatives. Gained hands-on experience with government IT infrastructure and workflow optimization.',
+       techStack: ''
+     }
+   ];
 
 
 
