@@ -49,14 +49,14 @@ const About = () => {
        description: 'NyumbaLink – Rental Management Platform: Architected and developed a full property management system. Implemented role-based access control and secure REST APIs. Omilife Web Platform: Built a production-ready e-commerce and automation platform. Developed authentication systems and automated workflows. Created REST APIs for internal and third-party integrations. Hardware Store POS & Inventory Management System: Engineered an offline-first POS with inventory tracking and stock automation. Integrated M-Pesa Till payment verification for transaction reconciliation. Implemented multi-branch reporting, user roles, and audit logging.',
        techStack: 'React.js, Django, Node.js, Python, MySQL, REST APIs'
      },
-     {
-       title: 'IT Support Intern',
-       company: 'Nairobi County Government – City Hall',
-       location: 'Nairobi, Kenya',
-       period: 'May 2024 – Aug 2024',
-       description: 'Provided technical system support for county operations. Assisted the digital communications team in designing promotional materials, event programs, and digital magazine content for official county functions and public engagement initiatives. Gained hands-on experience with government IT infrastructure and workflow optimization.',
-       techStack: ''
-     }
+      {
+        title: 'IT Support Intern',
+        company: 'Nairobi County Government – City Hall',
+        location: 'Nairobi, Kenya',
+        period: 'May 2024 – Aug 2024',
+        description: 'Provided technical system support for county offices and hospital county facilities. Configured and maintained network infrastructure including routers, switches, and wireless access points. Performed server maintenance, updates, and troubleshooting. Assisted the digital communications team in designing promotional materials, event programs, and digital magazine content for official county functions and public engagement initiatives. Gained hands-on experience with government IT infrastructure and workflow optimization.',
+        techStack: 'Windows OS, Active Directory, Networking (TCP/IP/DNS/DHCP), Linux Basics, Office 365, Hardware Troubleshooting'
+      }
    ];
 
 
