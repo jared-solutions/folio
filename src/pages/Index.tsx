@@ -1,165 +1,273 @@
 import React from 'react';
-import { ChevronDown, Code, Server, Globe, PenTool, ArrowRight } from 'lucide-react';
+import {
+  Code2,
+  Server,
+  Database,
+  ShieldCheck,
+  Zap,
+  ArrowRight,
+  ExternalLink,
+  Terminal,
+  Cpu,
+  Layers,
+  Sparkles,
+  Award,
+} from 'lucide-react';
+import { Link } from 'react-router-dom';
 import HeroSection from '../components/HeroSection';
 import ProjectCard from '../components/ProjectCard';
+import ArchitectureFlow from '../components/ArchitectureFlow';
+import ApiPlayground from '../components/ApiPlayground';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ScrollToTop from '../components/ScrollToTop';
-import { Link } from 'react-router-dom';
 
-// Sample project data with technologies matching Jared's skills
 const featuredProjects = [
   {
     id: 'omilife',
     title: 'Omilife Healthcare Management System',
-    description: 'A comprehensive medicine supply and pharmacy management system for efficient drug distribution, inventory tracking, sales management, and supplier coordination.',
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=500',
-    tags: ['React.js', 'Django', 'MySQL', 'REST API']
-  },
-  {
-    id: 'rentconnect',
-    title: 'RentConnect Website',
-    description: 'A platform connecting landlords and tenants with seamless property management features.',
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=500',
-    tags: ['React.js', 'Node.js', 'MySQL', 'REST API']
+    description:
+      'Scalable pharmaceutical distribution and pharmacy engine with ACID inventory locking, multi-branch supplier management, and automated regulatory stock alerts.',
+    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=800',
+    tags: ['Spring Boot', 'Django REST', 'React.js', 'MySQL', 'JWT RBAC'],
+    metric: '45% Latency Reduction',
+    architectureHighlight: 'Distributed Services',
+    githubUrl: 'https://github.com/jared-solutions/omilife',
+    demoUrl: 'https://omilife.co.ke',
   },
   {
     id: 'mkulima',
-    title: 'Complete Financial Management for Kenyan Poultry Farmers',
-    description: 'A comprehensive financial management system designed specifically for Kenyan poultry farmers.',
+    title: 'Mkulima Financial Platform & M-Pesa IPN',
+    description:
+      'Comprehensive financial ledger and inventory system tailored for commercial poultry farmers. Integrates automated Safaricom Daraja M-Pesa callback reconciliation.',
     image: '/uploads/cageG1.png',
-    tags: ['React.js', 'Django', 'MySQL', 'REST API', 'M-Pesa']
-  }
+    tags: ['React.js', 'Django', 'MySQL', 'M-Pesa Daraja API', 'REST API'],
+    metric: '100% Payment Reconciliation',
+    architectureHighlight: 'Idempotent Webhooks',
+    githubUrl: 'https://github.com/jared-solutions/mkulima',
+    demoUrl: 'https://eggcellent-sales.onrender.com/',
+  },
+  {
+    id: 'rentconnect',
+    title: 'RentConnect Property Management',
+    description:
+      'Multi-tenant rental property management platform connecting landlords and tenants with automated invoice reconciliation, maintenance requests, and audit logging.',
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800',
+    tags: ['Node.js', 'React.js', 'MySQL', 'REST API', 'RBAC'],
+    metric: 'Zero-Trust Auth',
+    architectureHighlight: 'Multi-Tenant RBAC',
+    demoUrl: 'https://nyumbalink.co.ke',
+  },
 ];
 
-const skills = [
+const technicalMatrix = [
   {
-    icon: <Code size={36} />,
-    title: 'Backend Development',
-    description: 'Spring Boot (Java), Django, Node.js, REST API Development, Microservices'
+    category: 'Backend & Microservices',
+    icon: <Cpu className="w-5 h-5 text-emerald-400" />,
+    skills: [
+      'Spring Boot (Java)',
+      'Django REST Framework',
+      'Node.js & Express',
+      'REST API Design (OpenAPI)',
+      'Microservice Architecture',
+      'Clean Code & SOLID',
+    ],
   },
   {
-    icon: <Server size={36} />,
-    title: 'Frontend Development',
-    description: 'React.js, JavaScript (ES6+), HTML5, CSS3'
+    category: 'Databases & In-Memory',
+    icon: <Database className="w-5 h-5 text-cyan-400" />,
+    skills: [
+      'MySQL 8.0 (ACID, Indexes)',
+      'Redis (Caching, Distributed Locks)',
+      'Connection Pools (HikariCP)',
+      'Schema Migration & Auditing',
+      'Transaction Isolation Levels',
+      'Query Profiling & Optimization',
+    ],
   },
   {
-    icon: <Globe size={36} />,
-    title: 'Database & Storage',
-    description: 'MySQL - Database design, optimization, and management'
+    category: 'Security & Fintech Integration',
+    icon: <ShieldCheck className="w-5 h-5 text-amber-400" />,
+    skills: [
+      'Safaricom M-Pesa Daraja API',
+      'JWT Authentication & Refresh Flow',
+      'Role-Based Access Control (RBAC)',
+      'Idempotent Webhook Processing',
+      'Data Encryption & OWASP Standards',
+      'SSL/TLS Certificate Automation',
+    ],
   },
   {
-    icon: <PenTool size={36} />,
-    title: 'Security & Architecture',
-    description: 'JWT Authentication, Role-Based Access Control (RBAC), secure API design'
-  }
+    category: 'Frontend & Cloud DevOps',
+    icon: <Layers className="w-5 h-5 text-purple-400" />,
+    skills: [
+      'React 18 & TypeScript',
+      'Tailwind CSS & Modern UI',
+      'Linux VPS Administration',
+      'Nginx Reverse Proxy & Load Balancing',
+      'Git Version Control & CI/CD',
+      'Automated Testing & Postman',
+    ],
+  },
 ];
 
-interface IndexProps {
-  guestName?: string;
-}
-
-const Index: React.FC<IndexProps> = ({ guestName = 'My Guest' }) => {
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
+const Index: React.FC = () => {
   return (
     <>
       <Navbar />
-      <main className="bg-background text-foreground">
-        <HeroSection guestName={guestName} />
+      <main className="bg-background text-foreground selection:bg-emerald-500/20 selection:text-emerald-300">
         
-        <div className="text-center mb-16">
-          <button 
-            onClick={() => scrollToSection('skills')}
-            className="animate-bounce inline-flex items-center justify-center w-12 h-12 rounded-full bg-green-600 text-white shadow-md hover:shadow-lg transition-shadow"
-            aria-label="Scroll down"
-          >
-            <ChevronDown size={24} />
-          </button>
-        </div>
-        
-        {/* Skills Section */}
-        <section id="skills" className="section-padding bg-gradient-to-br from-gray-50 to-white dark:from-slate-900 dark:to-slate-800">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-slate-800 dark:text-white mb-4">My Expertise</h2>
-              <div className="h-1 w-20 bg-green-600 mx-auto"></div>
+        {/* 1. Hero Section with Live Telemetry */}
+        <HeroSection />
+
+        {/* 2. System Architecture Blueprint */}
+        <ArchitectureFlow />
+
+        {/* 3. Featured Production Systems */}
+        <section className="py-20 md:py-28 bg-background relative overflow-hidden">
+          <div className="container mx-auto px-4 max-w-6xl">
+            
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4">
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
+                  <Award className="w-3.5 h-3.5" /> PROVEN PRODUCTION TRACK RECORD
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                  Featured <span className="text-gradient-emerald">Case Studies</span>
+                </h2>
+                <p className="text-muted-foreground text-sm sm:text-base max-w-xl">
+                  Enterprise-grade platforms built for scalability, robust business workflows, and strict uptime SLAs.
+                </p>
+              </div>
+
+              <Link
+                to="/projects"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors"
+              >
+                View All Systems & Architectures <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8">
-              {skills.map((skill, index) => (
-                <div
-                  key={index}
-                  className="bg-card p-4 sm:p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border border-border h-full flex flex-col overflow-hidden"
-                >
-                  <div className="text-green-600 mb-2 sm:mb-4 shrink-0 [&>svg]:w-6 [&>svg]:h-6 sm:[&>svg]:w-8 sm:[&>svg]:h-8">{skill.icon}</div>
-                  <h3 className="text-sm sm:text-xl font-bold mb-1 sm:mb-3 text-card-foreground line-clamp-2 shrink-0">{skill.title}</h3>
-                  <p className="text-xs sm:text-base text-muted-foreground overflow-hidden text-ellipsis line-clamp-4">{skill.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-        
-        {/* Featured Projects Section */}
-        <section className="section-padding bg-background">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-foreground mb-4">Featured Projects</h2>
-              <div className="h-1 w-20 bg-green-600 mx-auto mb-4"></div>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Explore some of my recent work. Each project represents unique challenges and solutions.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
+            {/* Projects Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {featuredProjects.map((project) => (
-                <ProjectCard 
+                <ProjectCard
                   key={project.id}
                   id={project.id}
                   title={project.title}
                   description={project.description}
                   image={project.image}
                   tags={project.tags}
-                  performance={project.id === 'omilife' ? 98 : project.id === 'rentconnect' ? 96 : 99}
-                  seo={project.id === 'mkulima' ? 98 : 100}
+                  metric={project.metric}
+                  architectureHighlight={project.architectureHighlight}
+                  githubUrl={project.githubUrl}
+                  demoUrl={project.demoUrl}
                 />
               ))}
             </div>
-            
-            <div className="text-center mt-12">
-              <Link 
-                to="/projects" 
-                className="bg-green-600 hover:bg-green-700 text-black px-8 py-3 rounded-full font-medium inline-flex items-center"
+
+            <div className="mt-12 text-center">
+              <Link
+                to="/projects"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-medium text-sm bg-card hover:bg-muted border border-border hover:border-emerald-500/40 text-foreground transition-all shadow-sm"
               >
-                View All Projects <ArrowRight size={18} className="ml-2" />
+                Browse Full Catalog of Systems ({featuredProjects.length}+ Projects)
+                <ArrowRight className="w-4 h-4 text-emerald-400" />
               </Link>
+            </div>
+
+          </div>
+        </section>
+
+        {/* 4. Interactive Live API Sandbox */}
+        <ApiPlayground />
+
+        {/* 5. Technical Competencies Matrix */}
+        <section className="py-20 md:py-28 bg-muted/20 border-t border-border/50 relative overflow-hidden">
+          <div className="container mx-auto px-4 max-w-6xl">
+            
+            <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
+                <Code2 className="w-3.5 h-3.5" /> DOMAIN COMPETENCIES
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                Technical <span className="text-gradient-emerald">Mastery Matrix</span>
+              </h2>
+              <p className="text-muted-foreground text-sm sm:text-base">
+                Core technologies and engineering frameworks deployed across production environments.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {technicalMatrix.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="p-6 rounded-2xl bg-card border border-white/10 hover:border-emerald-500/30 shadow-lg transition-all duration-300 space-y-4"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-muted border border-border">
+                      {item.icon}
+                    </div>
+                    <h3 className="font-bold text-foreground text-sm">
+                      {item.category}
+                    </h3>
+                  </div>
+
+                  <ul className="space-y-2 pt-2 border-t border-border/60">
+                    {item.skills.map((skill, sIdx) => (
+                      <li
+                        key={sIdx}
+                        className="text-xs font-mono text-muted-foreground flex items-center gap-2"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/80" />
+                        <span className="text-foreground/90">{skill}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </section>
+
+        {/* 6. High-Conversion CTA Section */}
+        <section className="py-24 md:py-32 relative overflow-hidden bg-grid-pattern">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-950/10 to-transparent pointer-events-none" />
+
+          <div className="container mx-auto px-4 max-w-4xl relative z-10 text-center space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-mono">
+              <Sparkles className="w-3.5 h-3.5" /> AVAILABLE FOR NEW CHALLENGES
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+              Ready to build high-performance software that scales?
+            </h2>
+
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              Whether you need to architect a mission-critical backend service, integrate M-Pesa payments, or build a production-grade web system, I'm ready to contribute immediately.
+            </p>
+
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+              <Link
+                to="/contact"
+                className="px-8 py-3.5 rounded-xl font-semibold text-sm bg-emerald-500 text-slate-950 hover:bg-emerald-400 hover:shadow-xl hover:shadow-emerald-500/20 transition-all active:scale-95 inline-flex items-center gap-2"
+              >
+                Initiate Conversation <ArrowRight className="w-4 h-4" />
+              </Link>
+
+              <a
+                href="mailto:ombongijared2@gmail.com"
+                className="px-6 py-3.5 rounded-xl font-medium text-sm bg-card hover:bg-muted border border-border text-foreground transition-all active:scale-95"
+              >
+                ombongijared2@gmail.com
+              </a>
             </div>
           </div>
         </section>
-        
-        {/* CTA Section */}
-        <section className="section-padding bg-gradient-to-br from-gray-50 to-white dark:from-slate-900 dark:to-slate-800 text-foreground">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Let's Work Together</h2>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              I'm currently available for freelance projects, full-time positions, and consulting work.
-              Let's create something amazing together!
-            </p>
-            <Link
-              to="/contact"
-              className="px-8 py-3 rounded-full font-medium bg-transparent border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-black transition-colors inline-flex items-center"
-            >
-              Get In Touch <ArrowRight size={18} className="ml-2" />
-            </Link>
-          </div>
-        </section>
+
       </main>
+
       <Footer />
       <ScrollToTop />
     </>

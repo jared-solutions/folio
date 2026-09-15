@@ -1,66 +1,145 @@
-
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowUpRight, Github, ExternalLink, ShieldCheck, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
 
-import { Zap, Search } from 'lucide-react';
-
-interface ProjectCardProps {
+export interface ProjectCardProps {
   id: string;
   title: string;
   description: string;
   image: string;
   tags: string[];
-  performance?: number;
-  seo?: number;
+  metric?: string;
+  architectureHighlight?: string;
+  githubUrl?: string;
+  demoUrl?: string;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ 
-  id, 
-  title, 
-  description, 
-  image, 
+export const ProjectCard: React.FC<ProjectCardProps> = ({
+  id,
+  title,
+  description,
+  image,
   tags,
-  performance = 99,
-  seo = 100
+  metric = 'Production Ready',
+  architectureHighlight = 'Microservice & REST',
+  githubUrl,
+  demoUrl,
 }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
+
   return (
-    <div className="project-card bg-white dark:bg-slate-800 border border-transparent dark:border-slate-700">
-      <div className="h-32 sm:h-48 overflow-hidden relative">
-        <img 
-          src={image} 
-          alt={title} 
-          loading="lazy"
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group relative rounded-2xl border border-white/10 bg-card overflow-hidden transition-all duration-300 hover:border-emerald-500/40 hover:shadow-2xl hover:shadow-emerald-950/20 flex flex-col h-full"
+    >
+      {/* Dynamic Cursor Spotlight Radial Effect */}
+      {isHovered && (
+        <div
+          className="pointer-events-none absolute -inset-px transition-opacity duration-300 opacity-100"
+          style={{
+            background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, rgba(16, 185, 129, 0.12), transparent 80%)`,
+          }}
         />
-        <div className="absolute top-2 right-2 flex flex-col gap-1">
-          <div className="bg-black/70 backdrop-blur-sm text-white text-[8px] sm:text-[10px] font-bold px-1 sm:px-2 py-0.5 sm:py-1 rounded flex items-center shadow">
-            <Zap size={10} className="text-yellow-400 mr-1 sm:w-3 sm:h-3" /> <span className="hidden sm:inline">{performance}% Perf</span><span className="sm:hidden">{performance}%</span>
-          </div>
-          <div className="bg-black/70 backdrop-blur-sm text-white text-[8px] sm:text-[10px] font-bold px-1 sm:px-2 py-0.5 sm:py-1 rounded flex items-center shadow">
-            <Search size={10} className="text-green-400 mr-1 sm:w-3 sm:h-3" /> <span className="hidden sm:inline">{seo}% SEO</span><span className="sm:hidden">{seo}%</span>
-          </div>
+      )}
+
+      {/* Image Preview with Aspect Ratio */}
+      <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-muted/40 border-b border-border/60">
+        <img
+          src={image}
+          alt={title}
+          loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+
+        {/* Top Badges */}
+        <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+          <span className="px-2.5 py-0.5 rounded-full bg-slate-950/80 backdrop-blur-md border border-white/10 text-[10px] font-mono text-emerald-400 font-semibold flex items-center gap-1">
+            <Zap className="w-3 h-3 text-emerald-400" />
+            {metric}
+          </span>
+          <span className="px-2.5 py-0.5 rounded-full bg-slate-950/80 backdrop-blur-md border border-white/10 text-[10px] font-mono text-slate-300">
+            {architectureHighlight}
+          </span>
         </div>
       </div>
-      <div className="p-3 sm:p-6">
-        <div className="flex overflow-x-auto sm:flex-wrap gap-1 sm:gap-2 mb-2 sm:mb-3 pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          {tags.map((tag, index) => (
-            <span 
-              key={index} 
-              className="whitespace-nowrap text-[8px] sm:text-xs font-medium px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
-            >
-              {tag}
-            </span>
-          ))}
+
+      {/* Body Content */}
+      <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+        <div className="space-y-2">
+          {/* Tech Stack Chips */}
+          <div className="flex flex-wrap gap-1.5 mb-2">
+            {tags.slice(0, 4).map((tag, idx) => (
+              <span
+                key={idx}
+                className="text-[10px] font-mono px-2 py-0.5 rounded bg-muted/80 text-muted-foreground border border-border/60"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <h3 className="text-lg font-bold tracking-tight text-foreground group-hover:text-emerald-400 transition-colors line-clamp-1">
+            <Link to={`/projects/${id}`}>{title}</Link>
+          </h3>
+
+          <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2">
+            {description}
+          </p>
         </div>
-        <h3 className="text-sm sm:text-xl font-bold mb-1 sm:mb-2 text-gray-800 dark:text-white line-clamp-1">{title}</h3>
-        <p className="text-xs sm:text-base text-gray-600 dark:text-gray-300 mb-2 sm:mb-4 line-clamp-2">{description}</p>
-        <Link 
-          to={`/projects/${id}`} 
-          className="inline-flex items-center text-[10px] sm:text-base text-green-600 font-medium hover:underline"
-        >
-          View Project <ArrowRight size={14} className="ml-1 sm:w-4 sm:h-4" />
-        </Link>
+
+        {/* Card Footer Actions */}
+        <div className="pt-3 border-t border-border/60 flex items-center justify-between text-xs font-medium">
+          <Link
+            to={`/projects/${id}`}
+            className="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-semibold group/link"
+          >
+            Case Study & Architecture
+            <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+          </Link>
+
+          <div className="flex items-center gap-2">
+            {githubUrl && (
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                title="View Source Code"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Github className="w-3.5 h-3.5" />
+              </a>
+            )}
+            {demoUrl && (
+              <a
+                href={demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                title="Live Deployment"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

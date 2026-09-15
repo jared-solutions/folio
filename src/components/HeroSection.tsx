@@ -1,210 +1,277 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowDown } from 'lucide-react';
 import {
-  FaFacebook,
-  FaInstagram,
-  FaYoutube,
-  FaLinkedin,
-  FaGithub,
-  FaWhatsapp
-} from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+  ArrowRight,
+  Terminal,
+  Server,
+  Activity,
+  ShieldCheck,
+  Zap,
+  MapPin,
+  Clock,
+  Download,
+  CheckCircle2,
+} from 'lucide-react';
+import { FaGithub, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
-interface HeroSectionProps {
-  guestName?: string;
-}
+const logSnippets = [
+  { method: 'GET', path: '/api/v1/health', status: 200, latency: '8ms' },
+  { method: 'POST', path: '/api/v1/auth/jwt/verify', status: 200, latency: '14ms' },
+  { method: 'GET', path: '/api/v1/inventory/omilife/stock', status: 200, latency: '21ms' },
+  { method: 'POST', path: '/api/v1/mpesa/c2b/callback', status: 200, latency: '64ms' },
+  { method: 'GET', path: '/api/v1/projects/architecture', status: 200, latency: '11ms' },
+];
 
-const HeroSection: React.FC<HeroSectionProps> = ({ guestName = 'My Guest' }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [displayText, setDisplayText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTyping, setIsTyping] = useState(true);
+export const HeroSection: React.FC = () => {
+  const [logs, setLogs] = useState(logSnippets.slice(0, 3));
+  const [currentTime, setCurrentTime] = useState('');
 
-  const texts = ["Full-Stack Software Engineer & Backend Specialist", "Building scalable, secure, and high-performance applications that drive business growth."];
-
+  // Clock for Nairobi Time
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 200 && scrollY < 1000);
+    const updateTime = () => {
+      const now = new Date();
+      setCurrentTime(
+        now.toLocaleTimeString('en-US', {
+          timeZone: 'Africa/Nairobi',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+        })
+      );
     };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    updateTime();
+    const timer = setInterval(updateTime, 1000);
+    return () => clearInterval(timer);
   }, []);
 
-  // Typewriter effect
+  // Simulated live log ticker
   useEffect(() => {
-    const currentText = texts[currentIndex];
-    
-    if (isTyping) {
-      if (displayText.length < currentText.length) {
-        const timeout = setTimeout(() => {
-          setDisplayText(currentText.slice(0, displayText.length + 1));
-        }, 100);
-        return () => clearTimeout(timeout);
-      } else {
-        // Pause after typing complete
-        const timeout = setTimeout(() => {
-          setIsTyping(false);
-        }, 2000);
-        return () => clearTimeout(timeout);
-      }
-    } else {
-      // Deleting effect
-      if (displayText.length > 0) {
-        const timeout = setTimeout(() => {
-          setDisplayText(displayText.slice(0, -1));
-        }, 50);
-        return () => clearTimeout(timeout);
-      } else {
-        // Move to next text
-        setCurrentIndex((prev) => (prev + 1) % texts.length);
-        setIsTyping(true);
-      }
-    }
-  }, [displayText, currentIndex, isTyping, texts]);
+    let index = 3;
+    const interval = setInterval(() => {
+      const nextLog = logSnippets[index % logSnippets.length];
+      setLogs((prev) => [...prev.slice(1), nextLog]);
+      index++;
+    }, 2800);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center bg-black text-white overflow-hidden">
-      {/* Background image with overlay */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="/uploads/jar.jpeg"
-          alt="Jared Mogonchi"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/60"></div>
-      </div>
+    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-grid-pattern">
+      {/* Ambient background glow meshes */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+      <div className="absolute top-1/3 right-10 w-[300px] h-[250px] bg-teal-500/10 rounded-full blur-[100px] pointer-events-none -z-10" />
 
-      {/* Hero content */}
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col md:flex-row items-center">
-          <div className="w-full md:w-1/2 md:ml-auto md:pl-4 lg:pl-12 mb-8 md:mb-0 md:text-right px-2">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <motion.h2
-                className="text-2xl mb-4"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                Hello, <span className="text-green-600 font-bold">{guestName}</span>
-              </motion.h2>
+      <div className="container mx-auto px-4 max-w-6xl">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left Hero Column: Headline & Authority */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 space-y-6 text-left"
+          >
+            {/* Status & Time Badges */}
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-mono font-medium">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                OPEN FOR FULL-STACK & BACKEND ROLES
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-muted/60 border border-border text-muted-foreground text-xs font-mono">
+                <MapPin className="w-3 h-3 text-emerald-400" />
+                <span>Nairobi (UTC+3)</span>
+                <Clock className="w-3 h-3 ml-1 text-slate-400" />
+                <span>{currentTime || '17:00'}</span>
+              </div>
+            </div>
+
+            {/* Main Headline */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+              Architecting <span className="text-gradient-emerald">Resilient Backends</span> & High-Impact Systems.
+            </h1>
+
+            {/* Description */}
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
+              I’m <strong className="text-foreground">Jared Mogonchi</strong> — a Full-Stack Software Engineer specializing in{' '}
+              <span className="text-emerald-400 font-medium">Spring Boot</span>,{' '}
+              <span className="text-emerald-400 font-medium">Django</span>,{' '}
+              <span className="text-emerald-400 font-medium">Node.js</span>, and{' '}
+              <span className="text-emerald-400 font-medium">React</span>. I build secure REST microservices, M-Pesa fintech integrations, and production-grade web systems engineered for 99.9% uptime.
+            </p>
+
+            {/* Call To Action Buttons */}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <Link
+                to="/projects"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm bg-emerald-500 text-slate-950 hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/20 transition-all active:scale-95"
               >
-                <h3 className="text-xl mb-2 lg:mb-6">My name is</h3>
-                <h1 className="text-4xl lg:text-6xl font-bold mb-2 lg:mb-4">
-                  Mogonchi <span className="text-green-600">Jared</span>
-                </h1>
-                <h3 className="text-lg lg:text-xl mb-4 lg:mb-6">And I'm a:</h3>
-                <div className="text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 min-h-[6rem] lg:min-h-[8rem]">
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-green-600"
-                  >
-                    {displayText}
-                    <span className="animate-pulse">|</span>
-                  </motion.span>
+                Explore Systems & Case Studies
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+
+              <a
+                href="#api-sandbox"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-sm bg-card hover:bg-muted border border-border hover:border-emerald-500/40 text-foreground transition-all active:scale-95"
+              >
+                <Terminal className="w-4 h-4 text-emerald-400" />
+                Test Live Sandbox
+              </a>
+
+              <a
+                href="/Jared_Mogonchi_CV.pdf"
+                download="Jared_Mogonchi_CV.pdf"
+                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl font-medium text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
+                title="Download CV / Resume"
+              >
+                <Download className="w-4 h-4" />
+                CV
+              </a>
+            </div>
+
+            {/* Social & Contact Strip */}
+            <div className="flex items-center gap-4 pt-4 border-t border-border/60 text-muted-foreground text-sm">
+              <span className="text-xs uppercase tracking-wider font-mono text-muted-foreground/80">Connect:</span>
+              <a
+                href="https://github.com/jared-solutions"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-emerald-400 transition-colors flex items-center gap-1.5"
+              >
+                <FaGithub className="w-4 h-4" /> GitHub
+              </a>
+              <a
+                href="https://www.linkedin.com/in/jared-ombongi-b9187127b"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-emerald-400 transition-colors flex items-center gap-1.5"
+              >
+                <FaLinkedin className="w-4 h-4" /> LinkedIn
+              </a>
+              <a
+                href="https://wa.me/254710464858"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-emerald-400 transition-colors flex items-center gap-1.5"
+              >
+                <FaWhatsapp className="w-4 h-4 text-emerald-400" /> WhatsApp
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Right Hero Column: Interactive Telemetry & Server Console */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5"
+          >
+            <div className="rounded-2xl border border-white/10 bg-card/80 backdrop-blur-xl shadow-2xl p-5 space-y-4">
+              
+              {/* Terminal Header */}
+              <div className="flex items-center justify-between border-b border-border/80 pb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                  <span className="ml-2 font-mono text-xs text-muted-foreground font-medium">
+                    telemetry.jared.prod
+                  </span>
                 </div>
-              </motion.div>
+                <div className="flex items-center gap-1 text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                  <Activity className="w-3 h-3 animate-pulse" /> LIVE STREAM
+                </div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.8 }}
-                className="mt-8 lg:mt-12"
-              >
-                <Link
-                  to="/contact"
-                  className="border border-green-600 text-green-600 hover:bg-green-600 hover:text-black transition-colors px-8 py-3 rounded-full font-medium inline-flex items-center justify-center"
-                >
-                  Hire Me <ArrowDown size={18} className="ml-2" />
-                </Link>
-              </motion.div>
-            </motion.div>
-          </div>
+              {/* System Vitals Grid */}
+              <div className="grid grid-cols-2 gap-2.5">
+                <div className="p-3 rounded-xl bg-background/60 border border-border/60">
+                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                    <span className="flex items-center gap-1">
+                      <Zap className="w-3 h-3 text-amber-400" /> Avg Latency
+                    </span>
+                    <span className="font-mono text-[11px] text-emerald-400 font-semibold">Fast</span>
+                  </div>
+                  <div className="text-xl font-mono font-bold text-foreground">14.2 ms</div>
+                  <div className="text-[10px] text-muted-foreground mt-0.5">p99 &lt; 45ms across services</div>
+                </div>
+
+                <div className="p-3 rounded-xl bg-background/60 border border-border/60">
+                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                    <span className="flex items-center gap-1">
+                      <ShieldCheck className="w-3 h-3 text-emerald-400" /> Uptime
+                    </span>
+                    <span className="font-mono text-[11px] text-emerald-400 font-semibold">99.98%</span>
+                  </div>
+                  <div className="text-xl font-mono font-bold text-foreground">0 Failures</div>
+                  <div className="text-[10px] text-muted-foreground mt-0.5">Automated health checks</div>
+                </div>
+
+                <div className="p-3 rounded-xl bg-background/60 border border-border/60">
+                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                    <span className="flex items-center gap-1">
+                      <Server className="w-3 h-3 text-cyan-400" /> Architecture
+                    </span>
+                    <span className="font-mono text-[10px] text-cyan-400">Microservices</span>
+                  </div>
+                  <div className="text-sm font-semibold text-foreground">Spring + Django</div>
+                  <div className="text-[10px] text-muted-foreground mt-0.5">Redis cache + MySQL pool</div>
+                </div>
+
+                <div className="p-3 rounded-xl bg-background/60 border border-border/60">
+                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                    <span className="flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3 text-emerald-400" /> Fintech IPN
+                    </span>
+                    <span className="font-mono text-[10px] text-emerald-400">Active</span>
+                  </div>
+                  <div className="text-sm font-semibold text-foreground">M-Pesa Daraja</div>
+                  <div className="text-[10px] text-muted-foreground mt-0.5">Idempotent Webhooks</div>
+                </div>
+              </div>
+
+              {/* Realtime Request Log Console */}
+              <div className="rounded-xl bg-slate-950 border border-slate-800 p-3.5 space-y-2">
+                <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 flex items-center justify-between">
+                  <span>Simulated Request Influx</span>
+                  <span className="text-[10px] text-slate-500 font-mono">HTTP/2 TLS 1.3</span>
+                </div>
+                <div className="space-y-1.5 font-mono text-xs">
+                  {logs.map((log, i) => (
+                    <motion.div
+                      key={`${log.path}-${i}`}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="flex items-center justify-between py-1 px-2 rounded bg-slate-900/80 border border-slate-800/80 text-[11px]"
+                    >
+                      <div className="flex items-center gap-2 overflow-hidden">
+                        <span className="text-emerald-400 font-bold">{log.method}</span>
+                        <span className="text-slate-300 truncate">{log.path}</span>
+                      </div>
+                      <div className="flex items-center gap-2 pl-2 shrink-0">
+                        <span className="text-emerald-400 font-semibold">{log.status}</span>
+                        <span className="text-slate-500">{log.latency}</span>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom Quick Hint */}
+              <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-1 px-1">
+                <span>Press <kbd className="font-mono px-1 py-0.5 bg-muted rounded border border-border">⌘K</kbd> anywhere to navigate</span>
+                <span className="text-emerald-400">● All systems nominal</span>
+              </div>
+            </div>
+          </motion.div>
+
         </div>
       </div>
-
-      {/* Floating Social Media Icons */}
-      <motion.div
-        className={`fixed top-1/3 left-0 z-50 transition-opacity duration-300 ${
-          isScrolled ? 'opacity-100' : 'opacity-0'
-        }`}
-        initial={{ x: -60 }}
-        animate={{ x: 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        <div className="flex flex-col space-y-4">
-          {[
-            {
-              name: 'Facebook',
-              href: 'https://www.facebook.com/web.dev.578960?mibextid=rS40aB7S9Ucbxw6v',
-              bg: 'bg-blue-600',
-              icon: <FaFacebook className="w-3 h-3" />
-            },
-            {
-              name: 'X (Twitter)',
-              href: 'https://x.com/JaredOmbongi1',
-              bg: 'bg-black',
-              icon: <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            },
-            {
-              name: 'Instagram',
-              href: 'https://www.instagram.com/thecodejar?igsh=MXRmMHIzdnRva2pscA==',
-              bg: 'bg-gradient-to-tr from-purple-600 via-pink-500 to-orange-400',
-              icon: <FaInstagram className="w-3 h-3" />
-            },
-            {
-              name: 'LinkedIn',
-              href: 'https://www.linkedin.com/in/jared-ombongi-b9187127b?utm_source=share_via&utm_content=profile&utm_medium=member_android',
-              bg: 'bg-blue-700',
-              icon: <FaLinkedin className="w-3 h-3" />
-            },
-            {
-              name: 'GitHub',
-              href: 'https://github.com/jared-solutions',
-              bg: 'bg-gray-800',
-              icon: <FaGithub className="w-3 h-3" />
-            },
-            {
-              name: 'TikTok',
-              href: 'https://www.tiktok.com/@code.jar',
-              bg: 'bg-black',
-              icon: <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
-            },
-            {
-              name: 'WhatsApp',
-              href: 'https://wa.me/254710464858',
-              bg: 'bg-green-600',
-              icon: <FaWhatsapp className="w-3 h-3" />
-            }
-          ].map((icon, i) => (
-            <motion.a
-              key={i}
-              href={icon.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group relative flex items-center justify-center p-3 rounded-full ${icon.bg} text-white hover:scale-110 transition-transform duration-300`}
-            >
-              {icon.icon}
-              <span className="absolute left-12 bg-black text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                {icon.name}
-              </span>
-            </motion.a>
-          ))}
-        </div>
-      </motion.div>
     </section>
   );
 };

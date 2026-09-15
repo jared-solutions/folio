@@ -2,185 +2,379 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import TechCloud from '../components/TechCloud';
-import { Download, Briefcase, GraduationCap } from 'lucide-react';
+import ScrollToTop from '../components/ScrollToTop';
+import {
+  Download,
+  Briefcase,
+  Award,
+  CheckCircle2,
+  FileText,
+  ArrowRight,
+  ShieldCheck,
+  Zap,
+  Globe,
+  Clock,
+  Code2,
+  GraduationCap,
+  Sparkles,
+  Lock,
+} from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
 
-const About = () => {
-  const skills = [
-    { 
-      name: 'Backend Development', 
-      items: ['Spring Boot (Java)', 'Django', 'Node.js', 'REST API Development', 'Microservices'] 
-    },
-    { 
-      name: 'Frontend Development', 
-      items: ['React.js', 'JavaScript (ES6+)', 'HTML5', 'CSS3'] 
-    },
-    { 
-      name: 'Database & Storage', 
-      items: ['MySQL'] 
-    },
-    { 
-      name: 'Security & Architecture', 
-      items: ['JWT Authentication', 'Role-Based Access Control (RBAC)'] 
-    },
-    { 
-      name: 'DevOps & Tools', 
-      items: ['Linux', 'Git', 'Postman', 'Deployment (VPS/Cloud, SSL, DNS)'] 
-    },
-    { 
-      name: 'Additional Skills', 
-      items: ['M-Pesa Integration', 'Blockchain Basics (Ethereum/Hyperledger)', 'Unit Testing', 'Payment Integrations', 'API Testing', 'Team Collaboration'] 
-    }
-  ];
+const quickFacts = [
+  {
+    icon: <Briefcase className="w-4 h-4 text-emerald-400" />,
+    label: 'Track Record',
+    value: '3+ Years Production',
+    detail: 'Healthcare, fintech & SaaS systems',
+  },
+  {
+    icon: <Code2 className="w-4 h-4 text-cyan-400" />,
+    label: 'Primary Core Stack',
+    value: 'Java • Python • React',
+    detail: 'Spring Boot, Django REST, TypeScript',
+  },
+  {
+    icon: <Globe className="w-4 h-4 text-amber-400" />,
+    label: 'Timezone & Overlap',
+    value: 'Nairobi (UTC+3)',
+    detail: '4–6 hrs daily with Europe (CET) & US (EST)',
+  },
+  {
+    icon: <Zap className="w-4 h-4 text-purple-400" />,
+    label: 'Availability Status',
+    value: 'Immediate / 2 Weeks',
+    detail: 'Full-time remote & contract roles',
+  },
+];
 
-   const experiences = [
-     {
-       title: 'Full-Stack Developer',
-       company: 'MedicinaChain – HealthTech Startup',
-       location: 'Nairobi, Kenya',
-       period: 'Jan 2026 – Present',
-       description: 'Contribute to development of a secure healthcare platform connecting patients, providers, and pharmacies. Build responsive frontend modules using React.js. Design and implement RESTful APIs using Spring Boot, Django, and Node.js. Implement JWT-based authentication and role-based access control. Optimize backend performance for multi-user environments. Develop Python-based log monitoring tools for proactive error detection. Support production deployment, SSL configuration, and Linux server maintenance. Debug production issues and improve system reliability.',
-       techStack: 'React.js, Django, Spring Boot, Node.js, MySQL, JWT, Linux'
-     },
-     {
-       title: 'Independent Full-Stack Developer',
-       company: 'Freelance & Contract Projects',
-       location: 'Remote – Kenya & International',
-       period: 'Jan 2023 – Oct 2025',
-       description: 'NyumbaLink – Rental Management Platform: Architected and developed a full property management system. Implemented role-based access control and secure REST APIs. Omilife Web Platform: Built a production-ready e-commerce and automation platform. Developed authentication systems and automated workflows. Created REST APIs for internal and third-party integrations. Hardware Store POS & Inventory Management System: Engineered an offline-first POS with inventory tracking and stock automation. Integrated M-Pesa Till payment verification for transaction reconciliation. Implemented multi-branch reporting, user roles, and audit logging.',
-       techStack: 'React.js, Django, Node.js, Python, MySQL, REST APIs'
-     },
-      {
-        title: 'IT Support Intern',
-        company: 'Nairobi County Government – City Hall',
-        location: 'Nairobi, Kenya',
-        period: 'May 2024 – Aug 2024',
-        description: 'Provided technical system support for county offices and hospital county facilities. Configured and maintained network infrastructure including routers, switches, and wireless access points. Performed server maintenance, updates, and troubleshooting. Assisted the digital communications team in designing promotional materials, event programs, and digital magazine content for official county functions and public engagement initiatives, including the monthly county magazine. Gained hands-on experience with government IT infrastructure and workflow optimization.',
-        techStack: 'Windows OS, Active Directory, Networking (TCP/IP/DNS/DHCP), Linux Basics, Office 365, Hardware Troubleshooting'
-      }
-   ];
+const philosophies = [
+  {
+    icon: <ShieldCheck className="w-5 h-5 text-emerald-400" />,
+    title: 'Resilience over Complexity',
+    description:
+      'Writing maintainable, self-documenting code with clear error boundaries rather than brittle, over-engineered abstractions. Systems should degrade gracefully under unexpected edge conditions.',
+  },
+  {
+    icon: <Lock className="w-5 h-5 text-cyan-400" />,
+    title: 'Strict ACID Data Integrity',
+    description:
+      'Financial ledgers (M-Pesa IPNs) and healthcare drug inventories must never suffer from silent data corruption or race conditions. All sensitive state mutations are wrapped in atomic database transaction boundaries.',
+  },
+  {
+    icon: <Zap className="w-5 h-5 text-amber-400" />,
+    title: 'Business-First Pragmatism',
+    description:
+      'Code is an instrument to solve concrete operational bottlenecks. Every API endpoint, query index, and interface flow is engineered to save operational time, increase revenue, or protect customer trust.',
+  },
+];
 
+const skills = [
+  { 
+    name: 'Backend Architecture & Microservices', 
+    items: ['Spring Boot (Java)', 'Django REST Framework', 'Node.js & Express', 'REST API Design (OpenAPI)', 'Microservice Patterns'] 
+  },
+  { 
+    name: 'Frontend Engineering', 
+    items: ['React.js 18', 'TypeScript', 'Tailwind CSS', 'TanStack Query', 'Responsive & Mobile-First UI'] 
+  },
+  { 
+    name: 'Databases & In-Memory Systems', 
+    items: ['MySQL 8.0 (Indexing & ACID)', 'Redis (Caching & Locks)', 'Connection Pooling (HikariCP)', 'Schema Versioning'] 
+  },
+  { 
+    name: 'Security & Access Architecture', 
+    items: ['JWT Authentication (Stateless)', 'Role-Based Access Control (RBAC)', 'OWASP Top 10 Hardening', 'SSL/TLS Automation'] 
+  },
+  { 
+    name: 'DevOps & Linux Administration', 
+    items: ['Linux Server Administration', 'Nginx Reverse Proxy & Load Balancing', 'Git CI/CD Workflows', 'Python Log Monitoring'] 
+  },
+  { 
+    name: 'Fintech & Payment Integrations', 
+    items: ['Safaricom M-Pesa Daraja API', 'Webhook Idempotency Filters', 'Automated Accounting Ledgers', 'Third-Party REST Gateways'] 
+  }
+];
 
+const experiences = [
+  {
+    title: 'Full-Stack Software Developer',
+    company: 'MedicinaChain – HealthTech Startup',
+    location: 'Nairobi, Kenya',
+    period: 'Jan 2026 – Present',
+    badge: 'Current Role',
+    bullets: [
+      'Engineering resilient backend microservices connecting healthcare providers, regional pharmacies, and patients.',
+      'Architected high-throughput REST APIs using Spring Boot and Django with strict JWT authentication and role-based access control (RBAC).',
+      'Built automated Python log monitoring tools to detect and alert on anomalous response latencies and database pool exhaustion.',
+      'Hardened Linux production servers with Nginx reverse proxy, automated Let’s Encrypt SSL certificates, and optimized MySQL connection pooling.',
+    ],
+    techStack: 'Spring Boot, Django REST, React.js, MySQL, Redis, JWT, Nginx, Linux',
+  },
+  {
+    title: 'Independent Full-Stack Software Engineer',
+    company: 'Contract & Enterprise Solutions',
+    location: 'Remote / Nairobi, Kenya',
+    period: 'Jan 2023 – Oct 2025',
+    badge: 'Production Platforms',
+    bullets: [
+      'Architected NyumbaLink (Rental Property Management Platform): Designed end-to-end multi-tenant database models and automated billing.',
+      'Engineered Omilife Web Platform: Built an enterprise medicine distribution engine featuring automated stock depletion warnings and audit logs.',
+      'Developed Retail POS & Inventory Engine: Designed offline-first point-of-sale system with automated Safaricom M-Pesa Till reconciliation.',
+      'Implemented ACID-compliant transaction boundaries preventing race conditions on concurrent stock reservation.',
+    ],
+    techStack: 'React.js, Django, Node.js, Python, MySQL, M-Pesa Daraja API, REST APIs',
+  },
+  {
+    title: 'IT Support & Systems Intern',
+    company: 'Nairobi County Government – City Hall',
+    location: 'Nairobi, Kenya',
+    period: 'May 2024 – Aug 2024',
+    badge: 'Infrastructure',
+    bullets: [
+      'Provided technical system administration and network diagnostics for county headquarters and health facilities.',
+      'Configured and maintained critical enterprise network infrastructure (routers, managed switches, and VLAN access points).',
+      'Assisted digital communications team in producing digital publications and publishing web updates for county civic initiatives.',
+    ],
+    techStack: 'Networking (TCP/IP, DNS, DHCP), Windows Server, Linux Basics, Active Directory',
+  },
+];
 
+const About: React.FC = () => {
   return (
     <>
       <Navbar />
-      <main className="pt-20">
-        {/* About Hero */}
-        <section className="section-padding bg-gradient-to-br from-gray-50 to-white dark:from-slate-900 dark:to-slate-800">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-              <div className="w-full md:w-2/5 max-w-sm mx-auto md:mx-0">
+      <main className="pt-24 pb-20 md:pt-32 md:pb-28 bg-background min-h-screen text-foreground selection:bg-emerald-500/20 selection:text-emerald-300">
+        <div className="container mx-auto px-4 max-w-6xl space-y-20">
+          
+          {/* 1. Hero Profile & Bio */}
+          <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-5 max-w-md mx-auto lg:mx-0 relative">
+              <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-card">
                 <img 
                   src="/uploads/image3.png" 
-                  alt="Professional portrait" 
-                  className="rounded-3xl w-full object-cover shadow-xl"
+                  alt="Jared Mogonchi portrait" 
+                  className="w-full h-auto object-cover"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
               </div>
               
-              <div className="md:w-3/5">
-                <h1 className="text-3xl md:text-4xl font-bold mb-4 text-slate-800 dark:text-white">About Me</h1>
-                <div className="h-1 w-20 bg-green-600 mb-6"></div>
-                
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  I am Jared Mogonchi, a Full-Stack Software Engineer based in Nairobi, Kenya, with experience building secure, scalable, and production-ready systems across healthcare and business platforms.
-                </p>
-                
-                <p className="text-gray-700 dark:text-gray-300 mb-6">
-                  I specialize in backend development using Spring Boot, Django, and Node.js, designing REST APIs, implementing authentication systems, and optimizing applications for multi-user environments. I have contributed to real-world platforms, including a healthcare system at MedicinaChain, where I work on backend services, system monitoring, and performance improvements. In addition to my professional experience, I have developed and deployed multiple full-stack solutions such as rental management systems, POS and inventory platforms, and business automation tools. I focus on building reliable systems that solve real operational problems while maintaining performance, security, and scalability.
-                </p>
-                
-                <div className="flex flex-wrap gap-4">
-                  <a
-                    href="/JARED MOGONCHI CV.docx"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-gradient px-6 py-2 rounded-full font-medium inline-flex items-center"
-                  >
-                    <Download size={18} className="mr-2" /> View CV
-                  </a>
+              {/* Floating Verified Pill */}
+              <div className="absolute -bottom-4 left-6 right-6 p-3 rounded-2xl glass-pill flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Award className="w-4 h-4 text-emerald-400" />
+                  <span className="text-xs font-semibold text-foreground">Verified Full-Stack Engineer</span>
                 </div>
+                <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                  Nairobi, KE
+                </span>
               </div>
             </div>
-          </div>
-        </section>
-        
-        {/* Skills Section */}
-        <section className="section-padding bg-gradient-to-br from-gray-50 to-white dark:from-slate-900 dark:to-slate-800">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-slate-800 dark:text-white mb-4">Technical Skills</h2>
-              <div className="h-1 w-20 bg-green-600 mx-auto"></div>
-            </div>
-            
-            <TechCloud />
-            
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
-              {skills.map((skill, index) => (
-                <div 
-                  key={index} 
-                  className="bg-white dark:bg-slate-800 p-4 sm:p-6 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 hover:shadow-xl hover:border-green-600 transition-all duration-300 transform hover:-translate-y-1"
+
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
+                <FileText className="w-3.5 h-3.5" /> PROFESSIONAL BACKGROUND
+              </div>
+
+              <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+                Engineering <span className="text-gradient-emerald">Scalable Software</span> with Purpose.
+              </h1>
+
+              <p className="text-muted-foreground leading-relaxed text-base sm:text-lg">
+                I am <strong className="text-foreground">Jared Mogonchi</strong>, a Full-Stack Software Engineer based in Nairobi, Kenya. I specialize in backend architecture using <strong>Spring Boot (Java)</strong>, <strong>Django (Python)</strong>, and <strong>Node.js</strong>, paired with dynamic <strong>React 18 & TypeScript</strong> frontends.
+              </p>
+
+              <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
+                My work centers on solving complex real-world challenges: healthcare logistics, financial ledgers with automated Safaricom M-Pesa reconciliation, inventory automation, and multi-tenant property management. I place high value on clean domain architecture, ACID compliance, zero-trust authentication, and low-latency API response times.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <a
+                  href="/Jared_Mogonchi_CV.pdf"
+                  download="Jared_Mogonchi_CV.pdf"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-all shadow-md active:scale-95"
                 >
-                  <h3 className="text-sm sm:text-lg font-bold text-green-700 mb-4 border-b border-gray-100 dark:border-slate-700 pb-2">{skill.name}</h3>
-                  <ul className="space-y-2">
-                    {skill.items.map((item, itemIndex) => (
-                      <li key={itemIndex} className="text-slate-600 dark:text-gray-400 text-xs sm:text-sm flex items-start">
-                        <span className="w-1.5 h-1.5 bg-green-600 rounded-full mt-2 mr-2 flex-shrink-0"></span>
-                        <span>{item}</span>
+                  <Download className="w-4 h-4" /> Download Official CV (PDF)
+                </a>
+
+                <a
+                  href="https://wa.me/254710464858"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-sm bg-card hover:bg-muted border border-border text-foreground transition-all"
+                >
+                  <FaWhatsapp className="w-4 h-4 text-emerald-400" /> Message on WhatsApp
+                </a>
+
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-sm text-muted-foreground hover:text-foreground transition-all"
+                >
+                  Initiate Discussion <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          {/* 2. Recruiter Quick Facts (10-Second At-a-Glance Grid) */}
+          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {quickFacts.map((fact, idx) => (
+              <div
+                key={idx}
+                className="p-5 rounded-2xl bg-card border border-white/10 space-y-1 hover:border-emerald-500/40 transition-all"
+              >
+                <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground mb-2">
+                  {fact.icon}
+                  <span>{fact.label}</span>
+                </div>
+                <div className="text-base font-bold text-foreground font-mono">
+                  {fact.value}
+                </div>
+                <div className="text-xs text-muted-foreground pt-0.5">
+                  {fact.detail}
+                </div>
+              </div>
+            ))}
+          </section>
+
+          {/* 3. Core Engineering Philosophy */}
+          <section className="p-8 sm:p-12 rounded-3xl bg-card border border-white/10 space-y-8 shadow-2xl">
+            <div className="text-center max-w-2xl mx-auto space-y-2">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
+                <Sparkles className="w-3.5 h-3.5" /> ARCHITECTURAL VALUES
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                How I Build Production Software
+              </h2>
+              <p className="text-xs sm:text-sm text-muted-foreground">
+                Core principles guiding architecture, concurrency, and security choices.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {philosophies.map((phil, idx) => (
+                <div
+                  key={idx}
+                  className="p-6 rounded-2xl bg-background/50 border border-border/60 space-y-3"
+                >
+                  <div className="p-2.5 rounded-xl bg-muted/60 border border-border w-fit">
+                    {phil.icon}
+                  </div>
+                  <h3 className="font-bold text-foreground text-base">{phil.title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {phil.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* 4. Categorized Technical Competencies */}
+          <section className="space-y-8 pt-4">
+            <div className="text-center max-w-2xl mx-auto space-y-2">
+              <h2 className="text-3xl font-extrabold tracking-tight">Technical Mastery</h2>
+              <p className="text-muted-foreground text-sm">
+                Frameworks, programming languages, databases, and architectural standards.
+              </p>
+            </div>
+
+            <TechCloud />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {skills.map((skillGroup, idx) => (
+                <div
+                  key={idx}
+                  className="p-6 rounded-2xl bg-card border border-white/10 hover:border-emerald-500/30 transition-all duration-300 shadow-lg space-y-4"
+                >
+                  <h3 className="font-bold text-foreground text-base border-b border-border/60 pb-3 flex items-center justify-between">
+                    <span>{skillGroup.name}</span>
+                    <span className="text-xs font-mono text-emerald-400">{skillGroup.items.length} Skills</span>
+                  </h3>
+                  <ul className="space-y-2.5">
+                    {skillGroup.items.map((item, itemIdx) => (
+                      <li key={itemIdx} className="text-xs text-muted-foreground flex items-center gap-2">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                        <span className="text-foreground/90 font-medium">{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-        
-        {/* Experience Section */}
-        <section className="section-padding bg-gradient-to-br from-gray-50 to-white dark:from-slate-900 dark:to-slate-800">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-slate-800 dark:text-white mb-4">Work Experience</h2>
-              <div className="h-1 w-20 bg-green-600 mx-auto"></div>
+          </section>
+
+          {/* 5. Professional Experience Timeline */}
+          <section className="space-y-10 pt-4">
+            <div className="text-center max-w-2xl mx-auto space-y-2">
+              <h2 className="text-3xl font-extrabold tracking-tight">Engineering Experience</h2>
+              <p className="text-muted-foreground text-sm">
+                Track record of delivering production software in startups and enterprise environments.
+              </p>
             </div>
-            
-            <div className="max-w-3xl mx-auto space-y-8">
-              {experiences.map((exp, index) => (
-                <div key={index} className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 hover:shadow-xl transition-all duration-300 hover:border-green-600">
-                  <div className="absolute -left-3 top-6 w-6 h-6 rounded-full bg-green-600 text-white flex items-center justify-center">
-                    <Briefcase size={14} />
-                  </div>
-                  <div className="border-l-2 border-green-600 pl-6 ml-0">
-                    <h3 className="text-xl font-bold text-slate-800 dark:text-white">{exp.title}</h3>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-green-700 font-medium">{exp.company}</span>
-                      <span className="text-sm text-gray-500">{exp.location}</span>
+
+            <div className="space-y-6 max-w-4xl mx-auto">
+              {experiences.map((exp, idx) => (
+                <div
+                  key={idx}
+                  className="p-6 sm:p-8 rounded-2xl bg-card border border-white/10 hover:border-emerald-500/30 shadow-xl transition-all space-y-4"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border/60 pb-4">
+                    <div>
+                      <div className="flex items-center gap-2.5">
+                        <h3 className="text-lg sm:text-xl font-bold text-foreground">{exp.title}</h3>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
+                          {exp.badge}
+                        </span>
+                      </div>
+                      <p className="text-sm font-medium text-emerald-400 mt-0.5">{exp.company}</p>
                     </div>
-                     <div className="flex justify-between items-center mb-4">
-                       <span className="text-sm text-gray-500">{exp.period}</span>
-                     </div>
-                      <ul className="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1.5 mb-3">
-                        {exp.description
-                          .split('. ')
-                          .filter((s) => s.trim() !== '')
-                          .map((sentence, i) => (
-                            <li key={i} className="text-sm sm:text-base">{sentence.trim()}</li>
-                          ))}
-                      </ul>
-                     {exp.techStack && (
-                       <p className="text-sm font-semibold text-green-700 dark:text-green-500 mt-2 border-t border-gray-100 dark:border-slate-700 pt-2">
-                         Tech Stack: <span className="font-normal text-gray-600 dark:text-gray-400">{exp.techStack}</span>
-                       </p>
-                     )}
+
+                    <div className="text-xs font-mono text-muted-foreground sm:text-right">
+                      <div>{exp.period}</div>
+                      <div>{exp.location}</div>
+                    </div>
+                  </div>
+
+                  <ul className="space-y-2 pt-1">
+                    {exp.bullets.map((bullet, bIdx) => (
+                      <li key={bIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                        <span className="text-foreground/90">{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="pt-3 border-t border-border/60 flex items-center gap-2 text-xs font-mono text-muted-foreground">
+                    <span className="font-semibold text-emerald-400">Stack:</span>
+                    <span className="text-slate-300">{exp.techStack}</span>
                   </div>
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-        
+          </section>
 
+          {/* 6. Education & Academic Foundation */}
+          <section className="p-8 sm:p-10 rounded-3xl bg-card border border-white/10 shadow-xl space-y-4 max-w-4xl mx-auto">
+            <div className="flex items-center gap-3 border-b border-border/60 pb-3">
+              <div className="p-2.5 rounded-xl bg-muted/60 border border-border">
+                <GraduationCap className="w-5 h-5 text-emerald-400" />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg text-foreground">Academic Foundation & Continuous Learning</h3>
+                <p className="text-xs text-muted-foreground">Computer Science principles, distributed systems & database administration</p>
+              </div>
+            </div>
+
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+              Solid foundational background in software engineering principles, algorithms, relational database administration, computer networking (TCP/IP, routing, DNS), and modern systems design. Continuously expanding capabilities into distributed microservice patterns, reactive architectures, and cloud automation.
+            </p>
+          </section>
+
+        </div>
       </main>
       <Footer />
+      <ScrollToTop />
     </>
   );
 };

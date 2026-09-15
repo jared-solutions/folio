@@ -1,12 +1,11 @@
-import { useState, Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
-import LoadingScreen from "./components/LoadingScreen";
-import WelcomeDialog from "./components/WelcomeDialog";
+import CommandMenu from "./components/CommandMenu";
 
 // Lazy load pages to reduce initial bundle size
 const Index = lazy(() => import("./pages/Index"));
@@ -17,115 +16,45 @@ const Services = lazy(() => import("./pages/Services"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+    },
+  },
+});
+
+const PageFallback = () => (
+  <div className="min-h-screen flex items-center justify-center bg-background">
+    <div className="flex flex-col items-center gap-3">
+      <div className="w-8 h-8 rounded-full border-2 border-emerald-500/20 border-t-emerald-400 animate-spin" />
+      <span className="text-xs font-mono text-muted-foreground tracking-wider uppercase">Loading System...</span>
+    </div>
+  </div>
+);
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
-  const [showWelcome, setShowWelcome] = useState(false);
-  const [guestName, setGuestName] = useState<string>("My Guest");
-
-  const handleLoadingComplete = () => {
-    setLoading(false);
-    setShowWelcome(true); // Always show welcome dialog after loading
-  };
-
-  const handleGuestNameSet = (name: string) => {
-    setGuestName(name);
-  };
-
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
         <TooltipProvider>
           <Toaster />
-          <Sonner />
+          <Sonner position="bottom-right" richColors />
 
-          {loading && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
-
-          {!loading && (
-            <>
-              <WelcomeDialog
-                open={showWelcome}
-                onOpenChange={setShowWelcome}
-                onGuestNameSet={handleGuestNameSet}
-              />
-
-              <BrowserRouter>
-                <Routes>
-                  <Route 
-                    path="/" 
-                    element={[
-                      <>
-                        <Suspense fallback={<div>Loading...</div>}>
-                          <Index guestName={guestName} />
-                        </Suspense>
-                      </>
-                    ]} 
-                  />
-                  <Route 
-                    path="/about" 
-                    element={[
-                      <>
-                        <Suspense fallback={<div>Loading...</div>}>
-                          <About />
-                        </Suspense>
-                      </>
-                    ]} 
-                  />
-                  <Route 
-                    path="/projects" 
-                    element={[
-                      <>
-                        <Suspense fallback={<div>Loading...</div>}>
-                          <Projects />
-                        </Suspense>
-                      </>
-                    ]} 
-                  />
-                  <Route 
-                    path="/projects/:id" 
-                    element={[
-                      <>
-                        <Suspense fallback={<div>Loading...</div>}>
-                          <ProjectDetail />
-                        </Suspense>
-                      </>
-                    ]} 
-                  />
-                  <Route 
-                    path="/services" 
-                    element={[
-                      <>
-                        <Suspense fallback={<div>Loading...</div>}>
-                          <Services />
-                        </Suspense>
-                      </>
-                    ]} 
-                  />
-                  <Route 
-                    path="/contact" 
-                    element={[
-                      <>
-                        <Suspense fallback={<div>Loading...</div>}>
-                          <Contact />
-                        </Suspense>
-                      </>
-                    ]} 
-                  />
-                  <Route 
-                    path="*" 
-                    element={[
-                      <>
-                        <Suspense fallback={<div>Loading...</div>}>
-                          <NotFound />
-                        </Suspense>
-                      </>
-                    ]} 
-                  />
-                </Routes>
-              </BrowserRouter>
-            </>
-          )}
+          <BrowserRouter>
+            <CommandMenu />
+            <Suspense fallback={<PageFallback />}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/projects/:id" element={<ProjectDetail />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </BrowserRouter>
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>

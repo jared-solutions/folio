@@ -2,36 +2,84 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
+import ScrollToTop from '../components/ScrollToTop';
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  Download,
+  Copy,
+  Check,
+  Clock,
+  Globe,
+  Sparkles,
+  HelpCircle,
+  ChevronDown,
+} from 'lucide-react';
+import { FaWhatsapp, FaGithub, FaLinkedin } from 'react-icons/fa6';
+import { toast } from 'sonner';
 
-const Contact = () => {
+type IntentType = 'role' | 'project' | 'general';
+
+const faqs = [
+  {
+    q: 'Are you open to full-time international remote roles?',
+    a: 'Yes, absolutely. I am experienced working asynchronously with distributed teams using Git, GitHub/GitLab, Slack, and ticket tracking (Jira/Linear). My timezone (UTC+3) has great overlap with Europe (CET) and the US East Coast (EST).',
+  },
+  {
+    q: 'What is your core tech stack and adaptability?',
+    a: 'My primary daily drivers are Spring Boot (Java), Django REST (Python), Node.js, and React 18 with TypeScript. I also have solid experience with MySQL 8.0, Redis, Nginx, and Linux server management, and I adapt quickly to new stacks and internal frameworks.',
+  },
+  {
+    q: 'Can you handle fintech and M-Pesa integrations from scratch?',
+    a: 'Yes. I have built end-to-end payment workflows using the Safaricom Daraja API (STK Push, C2B Paybill/Till, and B2C), including idempotent webhook listeners that prevent double-crediting under retries.',
+  },
+  {
+    q: 'What are your working hours and availability notice?',
+    a: 'I am currently available for new full-time software engineering roles and high-impact consulting contracts with immediate or 2-week start dates.',
+  },
+];
+
+const Contact: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const { toast } = useToast();
+  const [intent, setIntent] = useState<IntentType>('role');
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    subject: searchParams.get('subject') || '',
-    message: ''
+    intent: 'role',
+    message: '',
   });
 
   useEffect(() => {
     const subjectParam = searchParams.get('subject');
     if (subjectParam) {
-      setFormData(prev => ({ ...prev, subject: subjectParam }));
+      setFormData((prev) => ({ ...prev, message: `Re: ${subjectParam}\n` }));
     }
   }, [searchParams]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
+  const handleIntentChange = (selected: IntentType) => {
+    setIntent(selected);
+    setFormData((prev) => ({ ...prev, intent: selected }));
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('ombongijared2@gmail.com');
+    setCopiedEmail(true);
+    toast.success('Copied ombongijared2@gmail.com to clipboard');
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -41,216 +89,320 @@ const Contact = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          intentType: intent,
+        }),
       });
 
       if (response.ok) {
-        toast({
-          title: "Message sent!",
-          description: "Thank you for your message. I'll get back to you soon.",
+        toast.success('Message sent successfully!', {
+          description: "Thank you for reaching out. I'll get back to you promptly.",
         });
         setFormData({
           name: '',
           email: '',
           phone: '',
-          subject: '',
-          message: ''
+          intent: 'role',
+          message: '',
         });
       } else {
         throw new Error('Failed to send message');
       }
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again or contact me directly.",
-        variant: "destructive",
+      toast.error('Could not deliver message', {
+        description: 'Please try emailing ombongijared2@gmail.com or messaging on WhatsApp directly.',
       });
     } finally {
       setIsSubmitting(false);
     }
   };
-  
+
+  const getPlaceholder = () => {
+    if (intent === 'role') {
+      return 'Tell me about the role: title, company, stack, and timeline...';
+    }
+    if (intent === 'project') {
+      return 'Tell me about your project: system scope, tech stack, and target launch date...';
+    }
+    return 'How can I help you today?';
+  };
+
   return (
     <>
       <Navbar />
-      <main className="pt-20">
-        <section className="section-padding">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h1 className="text-4xl font-bold text-slate-800 dark:text-white mb-4">Get In Touch</h1>
-              <div className="h-1 w-20 bg-green-600 mx-auto mb-4"></div>
-              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                I'm interested in freelance opportunities, full-time positions, and interesting projects.
-                If you have any questions or want to discuss potential collaborations, feel free to reach out!
-              </p>
+      <main className="pt-24 pb-20 md:pt-32 md:pb-28 bg-background min-h-screen text-foreground selection:bg-emerald-500/20 selection:text-emerald-300">
+        <div className="container mx-auto px-4 max-w-6xl space-y-16">
+          
+          {/* Header */}
+          <section className="text-center max-w-3xl mx-auto space-y-3">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
+              <Sparkles className="w-3.5 h-3.5" /> INITIATE CONVERSATION
             </div>
+            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
+              Let’s Build <span className="text-gradient-emerald">Something Resilient</span>.
+            </h1>
+            <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
+              Whether you are hiring for a full-time engineering role, looking to architect a backend system, or exploring collaboration, I’d love to connect.
+            </p>
+          </section>
+
+          {/* Main Content Grid: Form (Left) & Recruiter Quick Info (Right) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-              {/* Contact Info */}
-              <div className="lg:col-span-1">
-                <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md h-full">
-                  <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-6">Contact Information</h2>
-                  
-                  <div className="space-y-6">
-                    <div className="flex items-start">
-                      <div className="bg-green-600/10 p-3 rounded-full mr-4">
-                        <Mail className="text-green-600" size={20} />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-slate-800 dark:text-white mb-1">Email</h3>
-                        <p className="text-gray-600 dark:text-gray-400">ombongijared2@gmail.com</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start">
-                      <div className="bg-green-600/10 p-3 rounded-full mr-4">
-                        <Phone className="text-green-600" size={20} />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-slate-800 dark:text-white mb-1">Phone</h3>
-                        <p className="text-gray-600 dark:text-gray-400">+254 710 464 858</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start">
-                      <div className="bg-green-600/10 p-3 rounded-full mr-4">
-                        <MapPin className="text-green-600" size={20} />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-slate-800 dark:text-white mb-1">Location</h3>
-                        <p className="text-gray-600 dark:text-gray-400">Nairobi, Kenya</p>
-                      </div>
-                    </div>
+            {/* Left Column: Smart Intent Form (7 Cols) */}
+            <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-card border border-white/10 shadow-2xl space-y-6">
+              
+              {/* Natural Language Intent Selector */}
+              <div className="space-y-2">
+                <label className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
+                  I am reaching out to:
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { id: 'role', label: 'Discuss Full-Time / Contract Role' },
+                    { id: 'project', label: 'Build a System / API' },
+                    { id: 'general', label: 'General Technical Inquiry' },
+                  ].map((btn) => (
+                    <button
+                      key={btn.id}
+                      type="button"
+                      onClick={() => handleIntentChange(btn.id as IntentType)}
+                      className={`px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                        intent === btn.id
+                          ? 'bg-emerald-500 text-slate-950 font-semibold shadow-md shadow-emerald-500/20'
+                          : 'bg-muted/60 text-muted-foreground hover:text-foreground border border-border/60'
+                      }`}
+                    >
+                      {btn.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Form Element */}
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-medium text-foreground">Your Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="e.g. Kevin Mwangi"
+                      className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-emerald-500/60"
+                    />
                   </div>
-                  
-                  <div className="mt-8">
-                    <img 
-                      src="/uploads/image2.png" 
-                      alt="Professional portrait" 
-                      className="rounded-lg w-48 object-cover shadow"
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-medium text-foreground">Work Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="kevin@company.co.ke"
+                      className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-emerald-500/60"
                     />
                   </div>
                 </div>
-              </div>
-              
-              {/* Contact Form */}
-              <div className="lg:col-span-2">
-                <form
-                  action="https://formspree.io/f/xjgknzgp"
-                  method="POST"
-                  onSubmit={handleSubmit}
-                  className="bg-white dark:bg-slate-800 p-8 rounded-lg shadow-md"
-                >
-                  <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-6">Send Me a Message</h2>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                    <div>
-                      <label htmlFor="name" className="block text-gray-700 dark:text-gray-300 mb-2">Name</label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        minLength={2}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-                        placeholder="Your name"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="email" className="block text-gray-700 dark:text-gray-300 mb-2">Email</label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-white"
-                        placeholder="Your email"
-                      />
-                    </div>
 
+                <div className="space-y-1.5">
+                  <label className="text-xs font-medium text-foreground">
+                    Phone / WhatsApp <span className="text-muted-foreground font-normal">(Optional)</span>
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="+254 712 345 678"
+                    className="w-full px-4 py-2.5 rounded-xl bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-emerald-500/60"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-medium text-foreground">Message</label>
+                  <textarea
+                    name="message"
+                    required
+                    rows={5}
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder={getPlaceholder()}
+                    className="w-full px-4 py-3 rounded-xl bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-emerald-500/60 resize-y"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-3.5 rounded-xl font-semibold text-sm bg-emerald-500 text-slate-950 hover:bg-emerald-400 active:scale-98 transition-all shadow-md shadow-emerald-500/10 flex items-center justify-center gap-2 disabled:opacity-60"
+                >
+                  <Send className={`w-4 h-4 ${isSubmitting ? 'animate-spin' : ''}`} />
+                  {isSubmitting ? 'Dispatching Message...' : 'Send Message'}
+                </button>
+              </form>
+
+            </div>
+
+            {/* Right Column: Hiring Manager & Recruiter Quick Info (5 Cols) */}
+            <div className="lg:col-span-5 space-y-6">
+              
+              {/* Quick Info Card */}
+              <div className="p-6 sm:p-7 rounded-3xl bg-card border border-white/10 shadow-xl space-y-5">
+                <div className="flex items-center justify-between border-b border-border/60 pb-3">
+                  <h3 className="font-bold text-foreground text-base">Hiring Manager Snapshot</h3>
+                  <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-semibold">
+                    Verified Engineer
+                  </span>
+                </div>
+
+                {/* Scannable Metadata */}
+                <div className="space-y-3 text-xs">
+                  <div className="flex items-start gap-2.5">
+                    <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                     <div>
-                      <label htmlFor="phone" className="block text-gray-700 dark:text-gray-300 mb-2">Phone Number</label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        required
-                        pattern="[0-9+\s\-]{10,}"
-                        minLength={10}
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-white"
-                        placeholder="Your phone number"
-                      />
+                      <span className="font-medium text-foreground">Location: </span>
+                      <span className="text-muted-foreground">Nairobi, Kenya (UTC+3)</span>
                     </div>
                   </div>
-                  
-                  <div className="mb-6">
-                    <label htmlFor="subject" className="block text-gray-700 dark:text-gray-300 mb-2">Subject</label>
-                    <input
-                      type="text"
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-                      placeholder="Message subject"
-                    />
+
+                  <div className="flex items-start gap-2.5">
+                    <Globe className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium text-foreground">Global Remote Overlap: </span>
+                      <span className="text-muted-foreground">4–6 hours daily with European (CET) & US East Coast (EST)</span>
+                    </div>
                   </div>
-                  
-                  <div className="mb-6">
-                    <label htmlFor="message" className="block text-gray-700 dark:text-gray-300 mb-2">Message</label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                      rows={6}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 resize-none"
-                      placeholder="Your message"
-                    ></textarea>
+
+                  <div className="flex items-start gap-2.5">
+                    <Clock className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium text-foreground">Availability: </span>
+                      <span className="text-emerald-400 font-semibold">Immediate / 2 Weeks Notice</span>
+                    </div>
                   </div>
-                  
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="btn-gradient px-8 py-3 rounded-lg font-medium inline-flex items-center"
+                </div>
+
+                {/* Direct 1-Click Action Strip */}
+                <div className="space-y-2 pt-2 border-t border-border/60">
+                  <a
+                    href="/Jared_Mogonchi_CV.pdf"
+                    download="Jared_Mogonchi_CV.pdf"
+                    className="w-full flex items-center justify-between p-3 rounded-xl bg-muted/60 hover:bg-muted border border-border text-xs font-semibold text-foreground transition-colors group"
                   >
-                    {isSubmitting ? 'Sending...' : (
-                      <>
-                        Send Message <Send size={18} className="ml-2" />
-                      </>
-                    )}
+                    <span className="flex items-center gap-2">
+                      <Download className="w-4 h-4 text-emerald-400" /> Download Official Resume (PDF)
+                    </span>
+                    <span className="text-[10px] font-mono text-muted-foreground group-hover:text-emerald-400">PDF</span>
+                  </a>
+
+                  <a
+                    href="https://wa.me/254710464858"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full flex items-center justify-between p-3 rounded-xl bg-muted/60 hover:bg-muted border border-border text-xs font-semibold text-foreground transition-colors group"
+                  >
+                    <span className="flex items-center gap-2">
+                      <FaWhatsapp className="w-4 h-4 text-emerald-400" /> Message on WhatsApp
+                    </span>
+                    <span className="text-[10px] font-mono text-emerald-400">Fast Response</span>
+                  </a>
+
+                  <button
+                    onClick={handleCopyEmail}
+                    className="w-full flex items-center justify-between p-3 rounded-xl bg-muted/60 hover:bg-muted border border-border text-xs font-semibold text-foreground transition-colors group"
+                  >
+                    <span className="flex items-center gap-2">
+                      {copiedEmail ? (
+                        <Check className="w-4 h-4 text-emerald-400" />
+                      ) : (
+                        <Copy className="w-4 h-4 text-slate-400" />
+                      )}
+                      {copiedEmail ? 'Copied to Clipboard!' : 'Copy Email Address'}
+                    </span>
+                    <span className="text-[10px] font-mono text-muted-foreground">ombongijared2@gmail.com</span>
                   </button>
-                </form>
+                </div>
+
+                {/* Social Profiles */}
+                <div className="flex items-center justify-center gap-4 pt-2 border-t border-border/60 text-xs text-muted-foreground">
+                  <a
+                    href="https://github.com/jared-solutions"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-emerald-400 transition-colors flex items-center gap-1"
+                  >
+                    <FaGithub className="w-3.5 h-3.5" /> GitHub
+                  </a>
+                  <span>•</span>
+                  <a
+                    href="https://www.linkedin.com/in/jared-ombongi-b9187127b"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-emerald-400 transition-colors flex items-center gap-1"
+                  >
+                    <FaLinkedin className="w-3.5 h-3.5" /> LinkedIn
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* Frequently Asked Questions Accordion */}
+          <section className="p-8 sm:p-12 rounded-3xl bg-card border border-white/10 space-y-6 shadow-2xl">
+            <div className="flex items-center gap-2 border-b border-border/60 pb-4">
+              <HelpCircle className="w-5 h-5 text-emerald-400" />
+              <div>
+                <h2 className="text-xl font-bold text-foreground">Frequently Asked Questions</h2>
+                <p className="text-xs text-muted-foreground">Details on remote collaboration, tech stacks, and start dates</p>
               </div>
             </div>
-          </div>
-        </section>
-        
-        {/* Map Section */}
-        <section className="h-[400px] bg-gray-100 mt-12">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255282.35853771843!2d36.707308359992174!3d-1.3028617927512838!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1172d84d49a7%3A0xf7cf0254b297924c!2sNairobi%2C%20Kenya!5e0!3m2!1sen!2sus!4v1710293188180!5m2!1sen!2sus" 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen 
-            loading="lazy" 
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Location Map"
-          ></iframe>
-        </section>
+
+            <div className="space-y-3">
+              {faqs.map((faq, idx) => {
+                const isOpen = openFaq === idx;
+                return (
+                  <div
+                    key={idx}
+                    className="rounded-2xl border border-border/80 bg-background/60 overflow-hidden transition-colors"
+                  >
+                    <button
+                      onClick={() => setOpenFaq(isOpen ? null : idx)}
+                      className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-4"
+                    >
+                      <span className="text-sm sm:text-base font-semibold text-foreground">
+                        {faq.q}
+                      </span>
+                      <ChevronDown
+                        className={`w-4 h-4 text-muted-foreground transition-transform duration-200 shrink-0 ${
+                          isOpen ? 'rotate-180 text-emerald-400' : ''
+                        }`}
+                      />
+                    </button>
+                    {isOpen && (
+                      <div className="px-4 sm:px-5 pb-5 text-xs sm:text-sm text-muted-foreground leading-relaxed border-t border-border/40 pt-3">
+                        {faq.a}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+        </div>
       </main>
       <Footer />
+      <ScrollToTop />
     </>
   );
 };

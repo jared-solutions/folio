@@ -1,141 +1,212 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles, Layers, Search } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProjectCard from '../components/ProjectCard';
+import ScrollToTop from '../components/ScrollToTop';
 
-const Projects = () => {
+const projects = [
+  {
+    id: 'omilife',
+    title: 'Omilife Healthcare Management System',
+    description:
+      'A comprehensive medicine supply and pharmacy management platform for efficient drug distribution, inventory batch tracking, sales management, and supplier coordination.',
+    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=800',
+    tags: ['React.js', 'Django REST', 'MySQL', 'JWT RBAC'],
+    category: 'enterprise',
+    metric: '45% Latency Reduction',
+    architectureHighlight: 'Distributed Services',
+    githubUrl: 'https://github.com/jared-solutions/omilife',
+    demoUrl: 'https://omilife.co.ke',
+  },
+  {
+    id: 'mkulima',
+    title: 'Mkulima Financial Management for Poultry Operations',
+    description:
+      'A financial ledger and inventory system tailored for commercial poultry farmers. Features automated Safaricom Daraja M-Pesa IPN reconciliation, feed tracking, and profit analytics.',
+    image: '/uploads/cageG1.png',
+    tags: ['React.js', 'Django', 'MySQL', 'M-Pesa IPN', 'REST API'],
+    category: 'web',
+    metric: '100% Auto-Reconciliation',
+    architectureHighlight: 'Idempotent Webhooks',
+    githubUrl: 'https://github.com/jared-solutions/mkulima',
+    demoUrl: 'https://eggcellent-sales.onrender.com/',
+  },
+  {
+    id: 'rentconnect',
+    title: 'RentConnect Property Management Platform',
+    description:
+      'Connecting landlords and tenants with seamless property management workflows. Includes real-time booking, tenant invoicing, maintenance ticketing, and RBAC authentication.',
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800',
+    tags: ['React.js', 'Node.js', 'MySQL', 'REST API'],
+    category: 'web',
+    metric: 'Zero-Trust Auth',
+    architectureHighlight: 'Multi-Tenant Architecture',
+    demoUrl: 'https://nyumbalink.co.ke',
+  },
+  {
+    id: 'sacco-system',
+    title: 'Enterprise SACCO Core Banking & Member Ledger',
+    description:
+      'Financial management system for Savings and Credit Cooperative Organizations. Features include member KYC, loan processing, savings ledgers, and automated audit statements.',
+    image: 'https://images.unsplash.com/photo-1579621970795-87facc2f976d?q=80&w=800',
+    tags: ['React.js', 'Spring Boot (Java)', 'MySQL', 'REST API'],
+    category: 'enterprise',
+    metric: 'ACID Transactions',
+    architectureHighlight: 'Spring Core & HikariCP',
+  },
+  {
+    id: 'car-hire',
+    title: 'Car Hire Fleet Logistics & Dispatch',
+    description:
+      'Car rental solution with booking reservation, payment processing, fleet utilization tracking, maintenance scheduling, and GPS log reconciliation.',
+    image: 'https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=800',
+    tags: ['React.js', 'Node.js', 'MySQL', 'JWT Auth'],
+    category: 'web',
+    metric: 'Fleet Availability Matrix',
+    architectureHighlight: 'Async Dispatch Queue',
+  },
+  {
+    id: 'gym-system',
+    title: 'Gym & Fitness Membership Engine',
+    description:
+      'Solution for fitness centers to automate recurring memberships, schedule trainers, record attendance via QR codes, and process subscription payments.',
+    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800',
+    tags: ['React.js', 'Node.js', 'MySQL', 'REST API'],
+    category: 'web',
+    metric: 'Real-time Check-in',
+    architectureHighlight: 'REST API & Webhooks',
+  },
+  {
+    id: 'spa-salon',
+    title: 'Spa & Salon Appointment Booking System',
+    description:
+      'Platform for wellness businesses to manage service appointments, staff rosters, consumables inventory, and customer loyalty programs.',
+    image: 'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?q=80&w=800',
+    tags: ['React.js', 'Django', 'MySQL', 'REST API'],
+    category: 'web',
+    metric: '99.8% Booking Reliability',
+    architectureHighlight: 'Django ORM & Cache',
+  },
+];
+
+const Projects: React.FC = () => {
   const [filter, setFilter] = useState('all');
-  
-  const projects = [
-    {
-      id: 'omilife',
-      title: 'Omilife Healthcare Management System',
-      description: 'A comprehensive medicine supply and pharmacy management system for efficient drug distribution, inventory tracking, sales management, and supplier coordination.',
-      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=500',
-      tags: ['React.js', 'Django', 'MySQL', 'REST API'],
-      category: 'web'
-    },
-    {
-      id: 'mkulima',
-      title: 'Complete Financial Management for Kenyan Poultry Farmers',
-      description: 'A comprehensive financial management system designed specifically for Kenyan poultry farmers. Includes expense tracking, income management, inventory control, and financial reporting.',
-      image: '/uploads/cageG1.png',
-      tags: ['React.js', 'Django', 'MySQL', 'REST API', 'M-Pesa'],
-      category: 'web'
-    },
-    {
-      id: 'rentconnect',
-      title: 'RentConnect Website',
-      description: 'A platform connecting landlords and tenants with seamless property management features. Includes booking, payment processing, and maintenance request tracking.',
-      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=500',
-      tags: ['React.js', 'Node.js', 'MySQL', 'REST API'],
-      category: 'web'
-    },
-    {
-      id: 'car-hire',
-      title: 'Car Hire Application',
-      description: 'A comprehensive car rental solution with booking, payment, and fleet management capabilities. Features include GPS tracking, maintenance scheduling, and customer reviews.',
-      image: 'https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=500',
-      tags: ['React.js', 'Node.js', 'MySQL', 'JWT'],
-      category: 'web'
-    },
-    {
-      id: 'gym-system',
-      title: 'Gym Management System',
-      description: 'Complete solution for gym owners to manage memberships, schedule classes, track attendance, and process payments. Includes a member portal for booking and progress tracking.',
-      image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=500',
-      tags: ['React.js', 'Node.js', 'MySQL', 'REST API'],
-      category: 'web'
-    },
-    {
-      id: 'spa-salon',
-      title: 'Spa & Salon Booking System',
-      description: 'Full-featured platform for spa and salon businesses to manage appointments, staff schedules, inventory, and client relationships. Includes online booking and payment processing.',
-      image: 'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?q=80&w=500',
-      tags: ['React.js', 'Django', 'MySQL', 'REST API'],
-      category: 'web'
-    },
-    {
-      id: 'sacco-system',
-      title: 'SACCO Management System',
-      description: 'Comprehensive financial management system for Savings and Credit Cooperative Organizations. Features include member management, loan processing, savings tracking, and financial reporting.',
-      image: 'https://images.unsplash.com/photo-1579621970795-87facc2f976d?q=80&w=500',
-      tags: ['React.js', 'Spring Boot', 'MySQL', 'REST API'],
-      category: 'enterprise'
-    }
-  ];
-  
-  const filteredProjects = filter === 'all' 
-    ? projects 
-    : projects.filter(project => project.category === filter);
-  
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredProjects = projects.filter((project) => {
+    const matchesFilter = filter === 'all' || project.category === filter;
+    const matchesSearch =
+      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
+    return matchesFilter && matchesSearch;
+  });
+
   return (
     <>
       <Navbar />
-      <main className="pt-20">
-        <section className="section-padding">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h1 className="text-4xl font-bold text-slate-800 dark:text-white mb-4">My Projects</h1>
-              <div className="h-1 w-20 bg-green-600 mx-auto mb-4"></div>
-              <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Here are some of the projects I've worked on, showcasing my expertise in full-stack development.
-              </p>
+      <main className="pt-24 pb-20 md:pt-32 md:pb-28 bg-background min-h-screen">
+        <div className="container mx-auto px-4 max-w-6xl">
+          
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
+              <Layers className="w-3.5 h-3.5" /> SYSTEM CATALOG
             </div>
+            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
+              Production <span className="text-gradient-emerald">Systems & Architectures</span>
+            </h1>
+            <p className="text-muted-foreground text-base max-w-xl mx-auto">
+              Explore production applications engineered with resilient backends, reliable data models, and modern user experiences.
+            </p>
+          </div>
 
-            {/* Filter Buttons */}
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
-              {['all', 'web', 'mobile', 'enterprise'].map((filterOption) => (
+          {/* Filter & Search Bar */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-10">
+            {/* Category Pills */}
+            <div className="flex flex-wrap items-center gap-2">
+              {[
+                { label: 'All Systems', value: 'all' },
+                { label: 'Enterprise Backends', value: 'enterprise' },
+                { label: 'Web Platforms', value: 'web' },
+              ].map((tab) => (
                 <button
-                  key={filterOption}
-                  onClick={() => setFilter(filterOption)}
-                  className={`px-6 py-2 rounded-full font-medium transition-colors ${
-                    filter === filterOption
-                      ? 'bg-green-600 text-white'
-                      : 'bg-gray-100 text-slate-700 dark:text-gray-200 hover:bg-gray-200'
+                  key={tab.value}
+                  onClick={() => setFilter(tab.value)}
+                  className={`px-4 py-2 rounded-xl text-xs font-medium transition-all ${
+                    filter === tab.value
+                      ? 'bg-emerald-500 text-slate-950 font-semibold shadow-md shadow-emerald-500/20'
+                      : 'bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted'
                   }`}
                 >
-                  {filterOption === 'all' ? 'All Projects' : 
-                   filterOption.charAt(0).toUpperCase() + filterOption.slice(1)}
+                  {tab.label}
                 </button>
               ))}
             </div>
 
-            {/* Projects Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
-              {filteredProjects.map((project) => (
-                <ProjectCard 
-                  key={project.id}
-                  id={project.id}
-                  title={project.title}
-                  description={project.description}
-                  image={project.image}
-                  tags={project.tags}
-                  performance={project.id === 'omilife' ? 98 : project.id === 'rentconnect' ? 96 : project.id === 'gym-system' ? 95 : 99}
-                  seo={project.id === 'mkulima' ? 98 : project.id === 'spa-salon' ? 97 : 100}
-                />
-              ))}
+            {/* Search Input */}
+            <div className="relative w-full sm:w-64">
+              <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Filter by tech or keyword..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-9 pr-4 py-2 rounded-xl bg-card border border-border text-xs text-foreground placeholder:text-muted-foreground outline-none focus:border-emerald-500/50"
+              />
             </div>
+          </div>
 
-            {/* CTA Section */}
-            <div className="mt-20 bg-green-600 rounded-2xl p-8 md:p-12 text-center text-white shadow-xl">
-              <h2 className="text-3xl font-bold mb-4">Impressed by my work?</h2>
-              <p className="text-green-100 mb-8 max-w-2xl mx-auto text-lg">
-                Whether you need a full-stack application, an API integration, or a secure backend system, I'm ready to bring your vision to life.
-              </p>
-              <Link 
-                to="/contact" 
-                className="inline-flex items-center bg-white text-green-700 hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition-colors text-lg"
+          {/* Projects Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProjects.map((project) => (
+              <ProjectCard
+                key={project.id}
+                id={project.id}
+                title={project.title}
+                description={project.description}
+                image={project.image}
+                tags={project.tags}
+                metric={project.metric}
+                architectureHighlight={project.architectureHighlight}
+                githubUrl={project.githubUrl}
+                demoUrl={project.demoUrl}
+              />
+            ))}
+          </div>
+
+          {filteredProjects.length === 0 && (
+            <div className="text-center py-16 text-muted-foreground text-sm font-mono">
+              No systems match "{searchQuery}". Try searching for "Django", "React", or "Spring Boot".
+            </div>
+          )}
+
+          {/* Bottom Card CTA */}
+          <div className="mt-20 p-8 sm:p-12 rounded-3xl border border-white/10 bg-card/60 backdrop-blur-xl shadow-2xl relative overflow-hidden text-center space-y-4">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none -z-10" />
+
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+              Looking for a custom system architecture?
+            </h2>
+            <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+              I consult on system architecture, database optimization, M-Pesa payment gateways, and end-to-end full-stack development.
+            </p>
+            <div className="pt-2">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 px-8 py-3 rounded-xl font-semibold text-sm bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-all shadow-md active:scale-95"
               >
-                Let's Build Something <ArrowRight className="ml-2" size={20} />
+                Discuss Technical Requirements <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
-        </section>
+
+        </div>
       </main>
       <Footer />
+      <ScrollToTop />
     </>
   );
 };

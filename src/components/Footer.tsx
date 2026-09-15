@@ -1,125 +1,168 @@
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Mail, Phone, ArrowUpRight, Github, Linkedin, Twitter, MessageCircle } from 'lucide-react';
+import { FaWhatsapp, FaGithub, FaLinkedin, FaXTwitter } from 'react-icons/fa6';
 
-
-import { Facebook, Twitter, Instagram, Linkedin, Github } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa'; 
-import { FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
-
-const Footer = () => {
+export const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [time, setTime] = useState('');
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTime(
+        now.toLocaleTimeString('en-US', {
+          timeZone: 'Africa/Nairobi',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+        })
+      );
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <footer className="bg-slate-800 text-white">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 className="text-xl font-bold mb-4">Jared Mogonchi</h3>
-            <p className="text-gray-300 mb-4">
-              A passionate full-stack developer creating innovative web solutions for real-world problems.
-            </p>
-            <div className="flex items-center space-x-4 text-gray-300">
-            <a
-  href="https://mail.google.com/mail/?view=cm&fs=1&to=ombongijared2@gmail.com"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="flex items-center space-x-2 hover:underline"
->
-  <FaEnvelope size={18} color="#EA4335" />
-  <span className="text-white">ombongijared2@gmail.com</span>
-</a>
-
-</div>
-
-<div className="flex items-center space-x-4 text-gray-300 mt-2">
-  <a href="tel:+254710464858" className="flex items-center space-x-2 hover:underline">
-    <FaPhoneAlt size={18} color="#25D366" />
-    <span className="text-white">+254 710 464 858</span>
-  </a>
-</div>
-          </div>
+    <footer className="border-t border-white/10 bg-card/60 backdrop-blur-md text-foreground">
+      <div className="container mx-auto px-4 max-w-6xl py-14">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           
-          <div>
-            <h3 className="text-xl font-bold mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-gray-300">
+          {/* Brand & Mission (Col 5) */}
+          <div className="md:col-span-5 space-y-4">
+            <div className="flex items-center gap-2">
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-sm font-bold">
+                JM
+              </span>
+              <span className="text-lg font-bold tracking-tight">
+                Jared Mogonchi
+              </span>
+            </div>
+
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">
+              Full-Stack Software Engineer & Backend Specialist. Architecting high-throughput distributed systems, secure REST APIs, and modern web applications.
+            </p>
+
+            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>All systems nominal • Ready for new deployments</span>
+            </div>
+          </div>
+
+          {/* Quick Navigation (Col 3) */}
+          <div className="md:col-span-3 space-y-3">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
+              Navigation
+            </h4>
+            <ul className="space-y-2 text-sm">
               <li>
-                <a href="/" className="hover:text-green-400 transition-colors">Home</a>
+                <Link to="/" className="text-muted-foreground hover:text-emerald-400 transition-colors">
+                  Overview & Telemetry
+                </Link>
               </li>
               <li>
-                <a href="/about" className="hover:text-green-400 transition-colors">About</a>
+                <Link to="/projects" className="text-muted-foreground hover:text-emerald-400 transition-colors">
+                  Systems & Architectures
+                </Link>
               </li>
               <li>
-                <a href="/projects" className="hover:text-green-400 transition-colors">Projects</a>
+                <Link to="/services" className="text-muted-foreground hover:text-emerald-400 transition-colors">
+                  Technical Capabilities
+                </Link>
               </li>
               <li>
-                <a href="/contact" className="hover:text-green-400 transition-colors">Contact</a>
+                <Link to="/about" className="text-muted-foreground hover:text-emerald-400 transition-colors">
+                  Experience & Background
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-muted-foreground hover:text-emerald-400 transition-colors">
+                  Contact & Inquiries
+                </Link>
               </li>
             </ul>
           </div>
-          
-          <div>
-  <h3 className="text-xl font-bold mb-4">Connect</h3>
-  <div className="flex space-x-4">
-    <a
-      href="https://www.facebook.com/web.dev.578960?mibextid=rS40aB7S9Ucbxw6v"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-10 h-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:opacity-80 transition-colors"
-    >
-      <Facebook size={20} />
-    </a>
-    <a
-      href="https://x.com/JaredOmbongi1"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:opacity-80 transition-colors"
-    >
-      <Twitter size={20} />
-    </a>
-    <a
-      href="https://www.instagram.com/thecodejar?igsh=MXRmMHIzdnRva2pscA=="
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white flex items-center justify-center hover:opacity-80 transition-colors"
-    >
-      <Instagram size={20} />
-    </a>
-    <a
-      href="https://www.linkedin.com/in/jared-ombongi-b9187127b?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-10 h-10 rounded-full bg-[#0A66C2] text-white flex items-center justify-center hover:opacity-80 transition-colors"
-    >
-      <Linkedin size={20} />
-    </a>
-    <a
-      href="https://github.com/jared-solutions"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-10 h-10 rounded-full bg-[#333] text-white flex items-center justify-center hover:opacity-80 transition-colors"
-    >
-      <Github size={20} />
-    </a>
-    <a
-      href="https://www.tiktok.com/@code.jar"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:opacity-80 transition-colors"
-    >
-      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
-    </a>
-    <a
-      href="https://wa.me/+254710464858" 
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:opacity-80 transition-colors"
-    >
-      <FaWhatsapp size={20} />
-    </a>
-  </div>
-</div>
+
+          {/* Contact & Location (Col 4) */}
+          <div className="md:col-span-4 space-y-4">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
+              Contact & Location
+            </h4>
+
+            <div className="space-y-2 text-sm">
+              <a
+                href="mailto:ombongijared2@gmail.com"
+                className="flex items-center gap-2 text-muted-foreground hover:text-emerald-400 transition-colors"
+              >
+                <Mail className="w-4 h-4 text-emerald-400" />
+                <span>ombongijared2@gmail.com</span>
+              </a>
+
+              <a
+                href="tel:+254710464858"
+                className="flex items-center gap-2 text-muted-foreground hover:text-emerald-400 transition-colors"
+              >
+                <Phone className="w-4 h-4 text-emerald-400" />
+                <span>+254 710 464 858</span>
+              </a>
+
+              <div className="pt-2 text-xs font-mono text-muted-foreground flex items-center gap-2">
+                <span>📍 Nairobi, Kenya (UTC+3):</span>
+                <span className="text-foreground font-semibold">{time || '17:00:00'}</span>
+              </div>
+            </div>
+
+            {/* Social Icons */}
+            <div className="flex items-center gap-3 pt-2">
+              <a
+                href="https://github.com/jared-solutions"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-xl bg-card border border-border text-muted-foreground hover:text-foreground hover:border-emerald-500/40 transition-all"
+                title="GitHub"
+              >
+                <FaGithub className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/jared-ombongi-b9187127b"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-xl bg-card border border-border text-muted-foreground hover:text-foreground hover:border-emerald-500/40 transition-all"
+                title="LinkedIn"
+              >
+                <FaLinkedin className="w-4 h-4" />
+              </a>
+              <a
+                href="https://x.com/JaredOmbongi1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-xl bg-card border border-border text-muted-foreground hover:text-foreground hover:border-emerald-500/40 transition-all"
+                title="Twitter / X"
+              >
+                <FaXTwitter className="w-4 h-4" />
+              </a>
+              <a
+                href="https://wa.me/254710464858"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-xl bg-card border border-border text-muted-foreground hover:text-foreground hover:border-emerald-500/40 transition-all"
+                title="WhatsApp"
+              >
+                <FaWhatsapp className="w-4 h-4 text-emerald-400" />
+              </a>
+            </div>
+          </div>
+
         </div>
-        
-        <div className="border-t border-white/10 mt-8 pt-8 text-center text-gray-300">
-          <p>&copy; {currentYear} Jared Mogonchi. All rights reserved.</p>
+
+        {/* Bottom Bar */}
+        <div className="mt-12 pt-6 border-t border-border/60 flex flex-col sm:flex-row items-center justify-between text-xs text-muted-foreground gap-4">
+          <p>© {currentYear} Jared Mogonchi. Built with React 18, TypeScript, Tailwind & Spring/Django Architecture.</p>
+          <div className="flex items-center gap-2">
+            <span>Press <kbd className="font-mono px-1 py-0.5 rounded bg-muted border border-border text-[10px]">⌘K</kbd> for command palette</span>
+          </div>
         </div>
       </div>
     </footer>
