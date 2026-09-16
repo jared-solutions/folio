@@ -125,24 +125,31 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
 
         <CommandGroup heading="Featured Systems">
           <CommandItem
+            onSelect={() => runCommand(() => navigate("/projects/medicinachain"))}
+            className="cursor-pointer"
+          >
+            <FileCode2 className="mr-2 h-4 w-4 text-emerald-400" />
+            <span>MedicinaChain — Enterprise Modular HMIS</span>
+          </CommandItem>
+          <CommandItem
             onSelect={() => runCommand(() => navigate("/projects/omilife"))}
             className="cursor-pointer"
           >
             <FileCode2 className="mr-2 h-4 w-4 text-cyan-400" />
-            <span>Omilife — Health Supply & Pharmacy Engine</span>
+            <span>Omilife — Pharmaceutical Distribution Platform</span>
           </CommandItem>
           <CommandItem
-            onSelect={() => runCommand(() => navigate("/projects/mkulima"))}
+            onSelect={() => runCommand(() => navigate("/projects/poultryops"))}
             className="cursor-pointer"
           >
-            <FileCode2 className="mr-2 h-4 w-4 text-emerald-400" />
-            <span>Mkulima — Poultry Financials & M-Pesa IPN</span>
+            <FileCode2 className="mr-2 h-4 w-4 text-amber-400" />
+            <span>PoultryOps — Commercial Poultry ERP & AgTech SaaS</span>
           </CommandItem>
           <CommandItem
             onSelect={() => runCommand(() => navigate("/projects/rentconnect"))}
             className="cursor-pointer"
           >
-            <FileCode2 className="mr-2 h-4 w-4 text-amber-400" />
+            <FileCode2 className="mr-2 h-4 w-4 text-indigo-400" />
             <span>RentConnect — Real-time Property Platform</span>
           </CommandItem>
         </CommandGroup>

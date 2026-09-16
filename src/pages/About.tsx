@@ -103,41 +103,42 @@ const experiences = [
     company: 'MedicinaChain – HealthTech Startup',
     location: 'Nairobi, Kenya',
     period: 'Jan 2026 – Present',
-    badge: 'Current Role',
+    badge: 'Current Role (Full-Time)',
     bullets: [
-      'Engineering resilient backend microservices connecting healthcare providers, regional pharmacies, and patients.',
-      'Architected high-throughput REST APIs using Spring Boot and Django with strict JWT authentication and role-based access control (RBAC).',
-      'Built automated Python log monitoring tools to detect and alert on anomalous response latencies and database pool exhaustion.',
-      'Hardened Linux production servers with Nginx reverse proxy, automated Let’s Encrypt SSL certificates, and optimized MySQL connection pooling.',
+      'Contributing to a secure healthcare platform connecting patients, healthcare providers, and pharmacies, serving 200+ active users.',
+      'Designing and implementing RESTful APIs using Spring Boot, Django, and Node.js with strict JWT authentication and RBAC security models.',
+      'Developing responsive modular frontend components using React.js and dynamic route configuration.',
+      'Writing automated tests with JUnit and PyTest to ensure high API reliability and zero regression.',
+      'Automating deployment pipelines with GitHub Actions, AWS hosting, and developing Python-based log monitoring tools.',
     ],
-    techStack: 'Spring Boot, Django REST, React.js, MySQL, Redis, JWT, Nginx, Linux',
+    techStack: 'Spring Boot (Java), Django REST, React.js, Node.js, MySQL, Redis, AWS, GitHub Actions',
   },
   {
     title: 'Independent Full-Stack Software Engineer',
     company: 'Contract & Enterprise Solutions',
     location: 'Remote / Nairobi, Kenya',
-    period: 'Jan 2023 – Oct 2025',
+    period: '2023 – Nov 2025',
     badge: 'Production Platforms',
     bullets: [
-      'Architected NyumbaLink (Rental Property Management Platform): Designed end-to-end multi-tenant database models and automated billing.',
-      'Engineered Omilife Web Platform: Built an enterprise medicine distribution engine featuring automated stock depletion warnings and audit logs.',
-      'Developed Retail POS & Inventory Engine: Designed offline-first point-of-sale system with automated Safaricom M-Pesa Till reconciliation.',
-      'Implemented ACID-compliant transaction boundaries preventing race conditions on concurrent stock reservation.',
+      'Built & Shipped PoultryOps (Poultry Farm ERP): Live commercial SaaS used by 20+ farms covering daily cage collection heatmaps, biological flock lifecycle headcount math, Safaricom M-Pesa STK Push, and Africa\'s Talking automated SMS alerts.',
+      'Architected NyumbaLink (Automated Rental Platform): Powered 300+ tenants and landlords with in-app M-Pesa rent payments, automated digital receipts, issue ticketing, and digital tenancy storage.',
+      'Engineered Omilife Web Platform: Built pharmaceutical e-commerce and wholesale catalog ordering platform connecting clinics with licensed distributors.',
+      'Developed Retail POS & Inventory Engine: Offline-first point-of-sale system with automated Safaricom M-Pesa Till reconciliation processing 100+ transactions daily.',
     ],
-    techStack: 'React.js, Django, Node.js, Python, MySQL, M-Pesa Daraja API, REST APIs',
+    techStack: 'React.js, Django, Node.js, Python, MySQL, M-Pesa Daraja API, Africa\'s Talking, Stripe, MUI',
   },
   {
     title: 'IT Support & Systems Intern',
     company: 'Nairobi County Government – City Hall',
     location: 'Nairobi, Kenya',
     period: 'May 2024 – Aug 2024',
-    badge: 'Infrastructure',
+    badge: 'ICT Infrastructure',
     bullets: [
-      'Provided technical system administration and network diagnostics for county headquarters and health facilities.',
-      'Configured and maintained critical enterprise network infrastructure (routers, managed switches, and VLAN access points).',
-      'Assisted digital communications team in producing digital publications and publishing web updates for county civic initiatives.',
+      'Provided technical systems administration and network troubleshooting for county offices and public health facilities.',
+      'Configured and maintained enterprise network infrastructure including routers, managed switches, and Wi-Fi access points.',
+      'Supported digital communications team in producing digital publications and publishing web updates for county civic initiatives.',
     ],
-    techStack: 'Networking (TCP/IP, DNS, DHCP), Windows Server, Linux Basics, Active Directory',
+    techStack: 'Active Directory, TCP/IP, DNS, DHCP, Windows Server, Linux Basics, Office 365',
   },
 ];
 
@@ -354,20 +355,38 @@ const About: React.FC = () => {
             </div>
           </section>
 
-          {/* 6. Education & Academic Foundation */}
-          <section className="p-8 sm:p-10 rounded-3xl bg-card border border-white/10 shadow-xl space-y-4 max-w-4xl mx-auto">
-            <div className="flex items-center gap-3 border-b border-border/60 pb-3">
+          {/* 6. Education & Certifications */}
+          <section className="p-8 sm:p-10 rounded-3xl bg-card border border-white/10 shadow-xl space-y-6 max-w-4xl mx-auto">
+            <div className="flex items-center gap-3 border-b border-border/60 pb-4">
               <div className="p-2.5 rounded-xl bg-muted/60 border border-border">
                 <GraduationCap className="w-5 h-5 text-emerald-400" />
               </div>
               <div>
-                <h3 className="font-bold text-lg text-foreground">Academic Foundation & Continuous Learning</h3>
-                <p className="text-xs text-muted-foreground">Computer Science principles, distributed systems & database administration</p>
+                <h3 className="font-bold text-lg text-foreground">Education & Professional Certifications</h3>
+                <p className="text-xs text-muted-foreground">Formal IT education, networking infrastructure, and cybersecurity credentials</p>
               </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-              Solid foundational background in software engineering principles, algorithms, relational database administration, computer networking (TCP/IP, routing, DNS), and modern systems design. Continuously expanding capabilities into distributed microservice patterns, reactive architectures, and cloud automation.
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="p-4 rounded-xl bg-background/60 border border-border/60 space-y-1.5">
+                <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-semibold">2025</span>
+                <h4 className="text-sm font-bold text-foreground">Diploma in Information Technology</h4>
+                <p className="text-xs text-muted-foreground">Kasarani Technical and Vocational College</p>
+              </div>
+              <div className="p-4 rounded-xl bg-background/60 border border-border/60 space-y-1.5">
+                <span className="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20 font-semibold">2024</span>
+                <h4 className="text-sm font-bold text-foreground">Cybersecurity Fundamentals</h4>
+                <p className="text-xs text-muted-foreground">Cisco Networking Academy</p>
+              </div>
+              <div className="p-4 rounded-xl bg-background/60 border border-border/60 space-y-1.5">
+                <span className="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20 font-semibold">2021</span>
+                <h4 className="text-sm font-bold text-foreground">KCSE Certificate</h4>
+                <p className="text-xs text-muted-foreground">Huduma School</p>
+              </div>
+            </div>
+
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed pt-2">
+              Solid foundational background in computer science principles, algorithms, relational database administration (MySQL/PostgreSQL), computer networking (TCP/IP, routing, DNS), and modern cloud infrastructure.
             </p>
           </section>
 

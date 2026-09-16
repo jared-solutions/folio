@@ -51,144 +51,215 @@ interface CaseStudy {
 }
 
 const caseStudies: Record<string, CaseStudy> = {
+  medicinachain: {
+    id: 'medicinachain',
+    title: 'MedicinaChain — Enterprise Modular HMIS & HealthTech SaaS',
+    category: 'Enterprise HealthTech · Full-Time Employment (Current Role)',
+    pitch:
+      'A multi-tenant clinical and hospital management platform with dynamic runtime module decoupling, allowing healthcare facilities to subscribe to custom modules on medicinachain.org and configure their HMIS without monolithic bloat.',
+    image: '/uploads/medicinachain.jpg',
+    demoUrl: 'https://medicinachain.org',
+    githubUrl: 'https://github.com/jared-solutions',
+    stats: {
+      impact: 'Modular Runtime Decoupling',
+      architecture: 'Multi-Tenant Spring Boot Engine',
+      stack: 'Spring Boot (Java) • React • MySQL • Flyway',
+      status: 'Live in Production',
+    },
+    challenge: {
+      context:
+        'Traditional hospital management systems (HMIS) ship as rigid, monolithic products where small pharmacies drown in hospital features they never use, while large referral hospitals cannot customize workflows without risking platform breakage.',
+      bottlenecks: [
+        'One-size-fits-all products forced clinics to pay for and navigate complex inpatient modules they did not need.',
+        'High risk of service failure when modifying single hospital modules in monolithic codebases.',
+        'Lack of secure multi-tenancy and patient biometric authentication across decentralized clinics.',
+      ],
+    },
+    architectureFlow: [
+      {
+        step: '01',
+        label: 'Facility Onboarding (medicinachain.org)',
+        detail: 'Health facility registers profile, selects required modules (Pharmacy, Billing, Lab, Inpatient), and receives cryptographically signed license key.',
+      },
+      {
+        step: '02',
+        label: 'Cryptographic License Verification',
+        detail: 'Spring Boot backend decodes and validates license keys, binding user permissions strictly to active licensed modules.',
+      },
+      {
+        step: '03',
+        label: 'Decoupled React HMIS Frontend',
+        detail: 'HMIS client dynamically reconfigures route guards, navigation trees, and visual themes based on licensed modules.',
+      },
+      {
+        step: '04',
+        label: 'Multi-Tenant Data Persistence & Queue',
+        detail: 'Multi-tenant MySQL schema isolation, Flyway versioned migrations, ActiveMQ event dispatch, and biometric matching (SourceAFIS).',
+      },
+    ],
+    engineeringHighlights: [
+      {
+        title: 'Dynamic Runtime Module Decoupling',
+        description:
+          'Facilities require a customized experience where only subscribed modules are accessible and rendered in navigation.',
+        implementation:
+          'Architected a decoupled frontend module system that parses signed license payloads upon authentication, dynamically registering routes, sidebar trees, and branding themes without hardcoded per-client builds.',
+      },
+      {
+        title: 'Multi-Tenant Isolation & Biometric Verification',
+        description:
+          'Securing multi-facility patient health records and integrating fingerprint authentication for clinical auditing.',
+        implementation:
+          'Engineered multi-tenant database isolation at the ORM layer paired with SourceAFIS biometric template matching to authenticate staff and identify patients.',
+      },
+    ],
+    productionDeliverables: [
+      '28 modular enterprise domains (Clinical, Pharmacy, Accounting, Lab, Morgue, Assets)',
+      'Public subscription and licensing gateway (medicinachain.org)',
+      'Flyway database schema migration pipeline and HikariCP connection pooling',
+      'Biometric fingerprint matching integration (SourceAFIS)',
+      'JasperReports PDF billing, receipts, and clinical report generation',
+    ],
+  },
   omilife: {
     id: 'omilife',
-    title: 'Omilife Healthcare & Pharmacy Engine',
-    category: 'Healthcare Logistics & Inventory',
+    title: 'Omilife — Pharmaceutical Distribution Platform',
+    category: 'Pharmaceutical Distribution · Production Client Contract',
     pitch:
-      'A centralized digital supply platform connecting medicine distributors with regional pharmacies, replacing manual paper stockouts with automated batch tracking and real-time inventory alerts.',
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=1200',
+      'A responsive pharmaceutical ordering and distribution web platform connecting regional healthcare facilities and pharmacies directly with verified pharmaceutical distributors.',
+    image: '/uploads/omilife image.png',
     demoUrl: 'https://omilife.co.ke',
-    githubUrl: 'https://github.com/jared-solutions/omilife',
+    githubUrl: 'https://github.com/jared-solutions',
     stats: {
-      impact: '45% Dispatch Latency Cut',
-      architecture: 'Distributed REST Microservices',
-      stack: 'Spring Boot • Django • React • MySQL',
+      impact: 'Catalog & Ordering Portal',
+      architecture: 'RESTful E-Commerce Engine',
+      stack: 'React.js • Django REST • MySQL',
       status: 'Production Deployed',
     },
     challenge: {
       context:
-        'Regional pharmacies and pharmaceutical suppliers in Kenya faced severe operational bottlenecks caused by fragmented manual record-keeping, delayed supplier phone orders, and frequent losses from expired batch stock.',
+        'Regional pharmacies and pharmaceutical suppliers in Kenya faced operational friction from manual phone orders, decentralized medicine stock catalogs, and delayed distributor deliveries.',
       bottlenecks: [
-        'Medicine orders took up to 48 hours to process via manual phone and paper logs.',
-        'High financial write-offs due to untracked drug expiration dates in decentralized storerooms.',
-        'Lack of regulatory compliance audit trails required by pharmacy regulatory boards.',
+        'Medicine orders took up to 48 hours to process via manual phone calls and paper price sheets.',
+        'High friction in browsing available distributor catalogs and pricing updates.',
+        'Lack of centralized order history and digital invoices.',
       ],
     },
     architectureFlow: [
       {
         step: '01',
-        label: 'Client / Pharmacist Portal',
-        detail: 'React 18 + TypeScript frontend providing instantaneous search across 12,000+ SKUs with cached catalogs.',
+        label: 'Client Catalog & Ordering Portal',
+        detail: 'Responsive React 18 frontend providing search across distributor pharmaceutical catalogs.',
       },
       {
         step: '02',
-        label: 'Stateless Security Gateway',
-        detail: 'JWT validation with Role-Based Access Control (RBAC) separating SuperAdmins, Distributors, and Pharmacists.',
+        label: 'Django REST API Backend',
+        detail: 'Handles catalog querying, pharmacy cart orders, and supplier routing.',
       },
       {
         step: '03',
-        label: 'Order & Inventory Engine',
-        detail: 'Spring Boot & Django REST backend orchestrating atomic stock reservation with ACID transaction isolation.',
+        label: 'Relational Medicine Store',
+        detail: 'MySQL relational database indexing drug categories, wholesale pricing, and verified supplier profiles.',
       },
       {
         step: '04',
-        label: 'ACID Persistence & Batch Alerts',
-        detail: 'MySQL 8.0 with indexed composite keys and an automated background cron alerting on 30-day expiry windows.',
+        label: 'Automated Supplier Notification',
+        detail: 'Instant order dispatch alerts sent to pharmaceutical suppliers for same-day delivery dispatch.',
       },
     ],
     engineeringHighlights: [
       {
-        title: 'Preventing Concurrent Stock Overselling',
+        title: 'Optimized Pharmaceutical Catalog Search',
         description:
-          'When multiple pharmacies attempted to order the remaining batch of emergency medicine at the same millisecond, standard read-modify-write patterns risked double allocation.',
+          'Pharmacies need to quickly search by brand name, generic formulation, and dosage across extensive medicine lists.',
         implementation:
-          'Enforced pessimistic row-level locking (SELECT ... FOR UPDATE) inside strict database transactions, guaranteeing that inventory reservations are serialized and idempotent.',
-      },
-      {
-        title: 'Proactive 30-Day Expiry Notification Pipeline',
-        description:
-          'Pharmacies previously discovered expired drugs only during end-of-quarter audits, causing significant inventory losses.',
-        implementation:
-          'Architected an asynchronous worker task that scans expiring batch lots daily, generating automated distributor markdown recommendations and supplier notifications.',
+          'Implemented indexed multi-field search and client-side cached query filters, enabling sub-30ms search results across pharmaceutical catalogs.',
       },
     ],
     productionDeliverables: [
-      'Multi-tenant pharmacy inventory & stock transfer engine',
-      'Batch expiration tracking with automated compliance logging',
-      'REST API with OpenAPI / Swagger contracts',
-      'Secure RBAC with granular staff permission levels',
-      'Responsive interface optimized for low-bandwidth mobile tablets',
+      'Responsive medicine ordering and distributor catalog web platform',
+      'Pharmacy client registration and order tracking dashboard',
+      'REST API endpoints with Django REST Framework',
+      'Supplier order dispatch notification system',
     ],
   },
-  mkulima: {
-    id: 'mkulima',
-    title: 'Mkulima Poultry Financial Platform & M-Pesa IPN',
-    category: 'Fintech & Commercial Agriculture',
+  poultryops: {
+    id: 'poultryops',
+    title: 'PoultryOps — Commercial Poultry ERP & AgTech SaaS',
+    category: 'Commercial AgTech SaaS · Production Client Contract',
     pitch:
-      'A specialized financial ledger and operations platform for commercial poultry enterprises, featuring automated Safaricom Daraja M-Pesa payment reconciliation and flock profitability analytics.',
-    image: '/uploads/cageG1.png',
+      'A multi-tenant commercial poultry farm ERP powering 20+ active farms with real-time flock lifecycle headcount math, egg inventory normalization (crates vs loose eggs), automated Safaricom Daraja M-Pesa STK Push, and Africa\'s Talking SMS dispatch.',
+    image: '/uploads/poltry system system.png',
     demoUrl: 'https://eggcellent-sales.onrender.com/',
-    githubUrl: 'https://github.com/jared-solutions/mkulima',
+    githubUrl: 'https://github.com/jared-solutions',
     stats: {
-      impact: '100% Payment Reconciliation',
-      architecture: 'Idempotent Webhooks & Ledgers',
-      stack: 'React • Django • MySQL • M-Pesa API',
-      status: 'Live & Operational',
+      impact: 'Powering 20+ Active Farms',
+      architecture: 'Multi-Tenant AgTech SaaS Engine',
+      stack: "React • Django REST • PostgreSQL • M-Pesa API • Africa's Talking",
+      status: 'Live SaaS in Production',
     },
     challenge: {
       context:
-        'Poultry farmers in Kenya operate on tight operational margins with hundreds of daily egg, chick, and feed transactions conducted over M-Pesa. Manual entry led to unaccounted revenue and untracked feed cost spikes.',
+        'Commercial egg and poultry operations in Kenya face razor-thin margins and high operational volatility. Farms struggle with daily egg collection mismatches, unrecorded mortality and sales drift, feed consumption losses, and manual reconciliation of hundreds of customer M-Pesa transactions.',
       bottlenecks: [
-        'Farmers lost up to 15% of recorded income through unverified manual M-Pesa SMS forwarding.',
-        'No unified ledger tracking feed consumption conversion ratios against flock revenue.',
-        'Difficulty calculating real net profitability per poultry batch.',
+        'Living flock headcount discrepancies caused by untracked mortalities and undocumented bird culls.',
+        'Inventory math errors between loose eggs and 30-egg crate trays causing balance mismatches.',
+        'Revenue leakage and delayed debtor follow-ups with retail egg buyers and wholesale distributors.',
+        'Lack of automated feed inventory low-stock alerts and veterinary vaccination schedule reminders.',
       ],
     },
     architectureFlow: [
       {
         step: '01',
-        label: 'Customer Payment (M-Pesa)',
-        detail: 'Customer initiates Buy Goods / Till transaction on their mobile device.',
+        label: 'Cage Grid & Daily Egg Collection',
+        detail: 'Staff log daily egg collections (Starter, Mid, Normal categories) with automatic 30-egg tray normalization and cage heatmap tracking.',
       },
       {
         step: '02',
-        label: 'Safaricom Daraja IPN',
-        detail: 'Safaricom servers dispatch an encrypted HTTP POST Instant Payment Notification webhook.',
+        label: 'Biological Headcount & Flock Engine',
+        detail: 'Real-time mathematical model calculating live flock population (base_birds - mortalities - sales) and feed burn rate.',
       },
       {
         step: '03',
-        label: 'Idempotent Webhook Handler',
-        detail: 'Django REST endpoint validates signature, verifies TransID uniqueness, and prevents duplicate processing.',
+        label: 'Safaricom Daraja STK Push & C2B IPN',
+        detail: 'Native M-Pesa mobile checkout triggers instant STK Push, validated via atomic database webhooks with zero duplicate processing.',
       },
       {
         step: '04',
-        label: 'Automated Accounting Entry',
-        detail: 'Atomic ledger credit recorded, stock deducted, and real-time SMS receipt generated for the customer.',
+        label: "Africa's Talking Automated SMS Dispatch",
+        detail: 'Cloud SMS gateway automatically sends payment confirmations, printable thermal receipts, and debtor account balance alerts.',
       },
     ],
     engineeringHighlights: [
       {
-        title: 'Zero-Leakage Webhook Idempotency',
+        title: 'Authoritative Biological Flock Lifecycle Engine',
         description:
-          'Safaricom Daraja webhooks can retry notifications multiple times under network timeouts, risking duplicate transaction recording.',
+          'Calculating exact living birds across multi-tier cage structures vs free-range setups without historical batch data distortion.',
         implementation:
-          'Engineered an idempotency filter with database unique constraints on TransID combined with atomic database transactions. Duplicate callbacks are acknowledged instantly without double-crediting.',
+          'Engineered an authoritative biological headcount formula in Django ORM deducting only post-batch mortalities and culled bird sales, ensuring true head counts for egg production percentage calculations.',
       },
       {
-        title: 'Real-Time Feed Conversion & Profit Modeling',
+        title: 'Egg Store 30-Egg Tray Normalization & Tiered Pricing',
         description:
-          'Feed accounts for 70% of poultry costs; without accurate modeling, farmers operate at unperceived losses.',
+          'Managing inventory balance across variable packaging sizes (individual eggs vs 30-piece trays) with volumetric price breaks.',
         implementation:
-          'Built mathematical aggregations in Django ORM calculating Feed Conversion Ratio (FCR) against egg yield per bird flock in real time.',
+          'Created atomic egg inventory algorithms with remainder borrowing logic, ensuring flawless stock counts when selling fractional trays, coupled with customer-tiered wholesale pricing.',
+      },
+      {
+        title: 'Zero-Leakage Safaricom M-Pesa & Africa\'s Talking Automation',
+        description:
+          'High transaction volumes require 100% financial accuracy and instant SMS notifications to farm owners and customers.',
+        implementation:
+          'Built idempotent Daraja webhook handlers combined with Africa\'s Talking SMS queues, automatically sending branded digital receipts, low-feed threshold alerts, and debtor balance reminders.',
       },
     ],
     productionDeliverables: [
-      'Turnkey Safaricom M-Pesa C2B and Till integration',
-      'Immutable double-entry transaction ledger',
-      'Automated batch profit/loss visual charts',
-      'Offline-tolerant sales logging with background sync',
-      'Vaccination schedule alerting and feed inventory monitor',
+      'Multi-tenant commercial poultry SaaS serving 20+ active Kenyan farms',
+      'Automated Safaricom Daraja STK Push and C2B IPN payment reconciliation',
+      "Africa's Talking SMS integration for automated receipts and debtor reminders",
+      'Veterinary biosecurity, vaccination schedule alerts, and mortality tracking',
+      'Fine-grained RBAC module licensing (Sales, Health, Feed, Reports) per employee',
+      'Offline-capable PWA with mobile-friendly thermal receipt printing',
     ],
   },
   rentconnect: {
@@ -328,8 +399,9 @@ const ProjectDetail: React.FC = () => {
   const [project, setProject] = useState<CaseStudy>(defaultProjectFallback);
 
   useEffect(() => {
-    if (id && caseStudies[id]) {
-      setProject(caseStudies[id]);
+    const lookupKey = id === 'mkulima' ? 'poultryops' : id;
+    if (lookupKey && caseStudies[lookupKey]) {
+      setProject(caseStudies[lookupKey]);
     } else {
       setProject({
         ...defaultProjectFallback,

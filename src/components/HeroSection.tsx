@@ -99,10 +99,13 @@ export const HeroSection: React.FC = () => {
             {/* Description */}
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
               I’m <strong className="text-foreground">Jared Mogonchi</strong> — a Full-Stack Software Engineer specializing in{' '}
-              <span className="text-emerald-400 font-medium">Spring Boot</span>,{' '}
-              <span className="text-emerald-400 font-medium">Django</span>,{' '}
-              <span className="text-emerald-400 font-medium">Node.js</span>, and{' '}
-              <span className="text-emerald-400 font-medium">React</span>. I build secure REST microservices, M-Pesa fintech integrations, and production-grade web systems engineered for 99.9% uptime.
+              <span className="text-emerald-400 font-medium">Spring Boot (Java)</span>,{' '}
+              <span className="text-emerald-400 font-medium">Django</span>, and{' '}
+              <span className="text-emerald-400 font-medium">React</span>. Currently engineering{' '}
+              <a href="https://medicinachain.org" target="_blank" rel="noopener noreferrer" className="text-emerald-400 font-semibold hover:underline">
+                MedicinaChain
+              </a>
+              , an enterprise multi-tenant HealthTech SaaS platform, alongside high-throughput REST APIs and M-Pesa fintech integrations.
             </p>
 
             {/* Call To Action Buttons */}
