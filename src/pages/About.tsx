@@ -16,7 +16,6 @@ import {
   Clock,
   Code2,
   GraduationCap,
-  Sparkles,
   Lock,
 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
@@ -243,7 +242,7 @@ const About: React.FC = () => {
           <section className="p-8 sm:p-12 rounded-3xl bg-card border border-white/10 space-y-8 shadow-2xl">
             <div className="text-center max-w-2xl mx-auto space-y-2">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
-                <Sparkles className="w-3.5 h-3.5" /> ARCHITECTURAL VALUES
+                <ShieldCheck className="w-3.5 h-3.5" /> ARCHITECTURAL PRINCIPLES
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
                 How I Build Production Software

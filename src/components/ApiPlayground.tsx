@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Play, Copy, Check, Terminal, Clock, Shield, Sparkles } from 'lucide-react';
+import { Play, Copy, Check, Terminal, Clock, Shield } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface EndpointConfig {

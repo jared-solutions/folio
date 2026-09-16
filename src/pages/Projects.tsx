@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles, Layers, Search } from 'lucide-react';
+import { ArrowRight, Code2, Layers, Search } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProjectCard from '../components/ProjectCard';
@@ -31,7 +31,7 @@ const projects = [
     metric: 'Live SaaS (20+ Farms)',
     architectureHighlight: 'STK Push & SMS Engine',
     githubUrl: 'https://github.com/jared-solutions',
-    demoUrl: 'https://eggcellent-sales.onrender.com/',
+    demoUrl: 'https://poultry.trinitysoft.co.ke/',
   },
   {
     id: 'omilife',

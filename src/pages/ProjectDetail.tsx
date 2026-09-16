@@ -190,7 +190,7 @@ const caseStudies: Record<string, CaseStudy> = {
     pitch:
       'A multi-tenant commercial poultry farm ERP powering 20+ active farms with real-time flock lifecycle headcount math, egg inventory normalization (crates vs loose eggs), automated Safaricom Daraja M-Pesa STK Push, and Africa\'s Talking SMS dispatch.',
     image: '/uploads/poltry system system.png',
-    demoUrl: 'https://eggcellent-sales.onrender.com/',
+    demoUrl: 'https://poultry.trinitysoft.co.ke/',
     githubUrl: 'https://github.com/jared-solutions',
     stats: {
       impact: 'Powering 20+ Active Farms',

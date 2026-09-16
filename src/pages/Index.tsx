@@ -10,7 +10,7 @@ import {
   Terminal,
   Cpu,
   Layers,
-  Sparkles,
+  CheckCircle2,
   Award,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -45,7 +45,7 @@ const featuredProjects = [
     metric: 'Live SaaS (20+ Farms)',
     architectureHighlight: 'STK Push & SMS Engine',
     githubUrl: 'https://github.com/jared-solutions',
-    demoUrl: 'https://eggcellent-sales.onrender.com/',
+    demoUrl: 'https://poultry.trinitysoft.co.ke/',
   },
   {
     id: 'omilife',
@@ -238,7 +238,7 @@ const Index: React.FC = () => {
 
           <div className="container mx-auto px-4 max-w-4xl relative z-10 text-center space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-mono">
-              <Sparkles className="w-3.5 h-3.5" /> AVAILABLE FOR NEW CHALLENGES
+              <CheckCircle2 className="w-3.5 h-3.5" /> AVAILABLE FOR FULL-STACK & BACKEND ROLES
             </div>
 
             <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">

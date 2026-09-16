@@ -13,7 +13,7 @@ import {
   Check,
   Clock,
   Globe,
-  Sparkles,
+  Terminal,
   HelpCircle,
   ChevronDown,
 } from 'lucide-react';
@@ -139,7 +139,7 @@ const Contact: React.FC = () => {
           {/* Header */}
           <section className="text-center max-w-3xl mx-auto space-y-3">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
-              <Sparkles className="w-3.5 h-3.5" /> INITIATE CONVERSATION
+              <Terminal className="w-3.5 h-3.5" /> INITIATE CONVERSATION
             </div>
             <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
               Let’s Build <span className="text-gradient-emerald">Something Resilient</span>.
