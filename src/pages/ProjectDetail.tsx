@@ -262,74 +262,352 @@ const caseStudies: Record<string, CaseStudy> = {
       'Offline-capable PWA with mobile-friendly thermal receipt printing',
     ],
   },
-  rentconnect: {
-    id: 'rentconnect',
-    title: 'RentConnect Property Management Platform',
-    category: 'Real Estate & Property Management',
+  nyumbalink: {
+    id: 'nyumbalink',
+    title: 'NyumbaLink — Real Estate Marketplace & Automated Rent ERP',
+    category: 'PropTech & Automated Fintech · Independent Production Platform',
     pitch:
-      'A multi-tenant property management system connecting property owners, building managers, and tenants with automated invoice reconciliation, maintenance ticketing, and audit logging.',
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1200',
+      'An integrated 2-in-1 PropTech ecosystem powering 300+ tenants and landlords in Kenya across two synchronized engines: a public house-hunting marketplace with verified listings, and a multi-role tenancy ERP automating monthly M-Pesa rent collection, underpayment/overpayment discrepancy detection, and digital lease storage.',
+    image: '/uploads/nyumbalink-estate.jpg',
     demoUrl: 'https://nyumbalink.co.ke',
     githubUrl: 'https://github.com/jared-solutions',
     stats: {
-      impact: 'Zero-Trust Tenant RBAC',
-      architecture: 'Multi-Tenant Architecture',
-      stack: 'Node.js • React • MySQL • REST',
-      status: 'Production Deployed',
+      impact: '300+ Tenants & Landlords',
+      architecture: 'Dual-Engine PropTech Suite',
+      stack: 'React 18 • Django REST • MySQL • M-Pesa Daraja',
+      status: 'Live Production Platform',
     },
     challenge: {
       context:
-        'Managing hundreds of rental units across different estates resulted in scattered bank statements, disputed utility bills, and untracked repair requests.',
+        'Finding and renting residential property in Kenya historically suffered from two disconnected problems: (1) House seekers face unregulated brokers and fraudulent listings, and (2) Once tenants move in, landlords and caretakers struggle with manual bank slips and unverified M-Pesa forwards, causing payment disputes, uncollected arrears, and delayed repairs.',
       bottlenecks: [
-        'Disputed manual rent receipts and untracked late payment penalties.',
-        'Delayed maintenance workflows causing tenant dissatisfaction and lease cancellations.',
-        'Lack of clear financial reporting for absentee property owners.',
+        'Fragmented property discovery with unverified listings and predatory middleman broker fees.',
+        'Manual rent reconciliation friction: Landlords losing hours matching M-Pesa SMS forwards against unit rent.',
+        'Silent underpayment and overpayment errors without automated notification triggers.',
+        'Lack of secure digital lease storage and security deposit escrow tracking.',
       ],
     },
     architectureFlow: [
       {
         step: '01',
-        label: 'Role-Based Dashboard',
-        detail: 'Separate, tailored user experiences for Landlords, Caretakers, and Tenants in React 18.',
+        label: 'Marketplace Engine (Discovery & Verification)',
+        detail: 'Public React 18 web platform allowing house hunters to filter by location, bedrooms, and budget. Landlords list properties with photo galleries and pay automated KSh 500 M-Pesa verification fees.',
       },
       {
         step: '02',
-        label: 'Node.js Express API',
-        detail: 'Microservices handling lease contracts, invoice generation, and maintenance dispatch.',
+        label: 'Viewing Schedules & Tenant Onboarding',
+        detail: 'Prospective tenants book viewing appointments online. Approved tenants are provisioned with unique unit codes and first-time login OTP credentials.',
       },
       {
         step: '03',
-        label: 'Automated Billing Engine',
-        detail: 'Monthly cron recurring billing calculating rent, water, and garbage collection charges.',
+        label: 'Automated M-Pesa Rent & Discrepancy Engine',
+        detail: 'Tenants pay rent via M-Pesa. System compares payment against expected rent, flagging exact underpayments or overpayments and notifying caretakers in real time.',
       },
       {
         step: '04',
-        label: 'Relational Multi-Tenant DB',
-        detail: 'MySQL schema with strict foreign key constraints and audit logging for financial clarity.',
+        label: 'Multi-Role Tenancy Operations ERP',
+        detail: 'Dedicated dashboards for Landlords, Caretakers, and Tenants managing digital lease agreements, security deposit escrow, utility billing, and prioritized maintenance ticketing.',
       },
     ],
     engineeringHighlights: [
       {
-        title: 'Multi-Tenant Data Isolation',
+        title: 'Synchronized Dual-Engine PropTech Architecture',
         description:
-          'Landlords must strictly access only their properties without any cross-tenant data leakage.',
+          'Seamlessly bridging public property discovery with private post-move-in property management ERP.',
         implementation:
-          'Implemented query middleware that enforces tenant ownership scopes at the ORM layer, preventing unauthorized horizontal privilege escalation.',
+          'Architected a unified relational data layer linking public listing metadata with private unit occupancy, tenant accounts, and caretaker assignments across both Django and React applications.',
       },
       {
-        title: 'Automated Maintenance Ticketing Lifecycle',
+        title: 'Automated Underpayment / Overpayment Discrepancy Engine',
         description:
-          'Maintenance disputes arose when verbal requests went unfulfilled.',
+          'Tenants often pay partial rent or combine utility fees, creating ledger chaos for caretakers.',
         implementation:
-          'Designed a state-machine ticket lifecycle (Open -> Assigned -> In-Progress -> Resolved) with image upload proofs and tenant sign-offs.',
+          'Engineered an automated payment validator comparing incoming M-Pesa transactions against expected unit rent. Discrepancies immediately generate audit logs and dispatch real-time notifications to caretakers and tenants.',
+      },
+      {
+        title: 'Digital Lease Agreement & Security Deposit Escrow',
+        description:
+          'Paper leases lead to disputes over tenancy dates, eviction notices, and unreturned deposits.',
+        implementation:
+          'Created an immutable lease agreement state engine (Draft -> Active -> Terminated -> Expired) tracking monthly rent, terms, and deposit escrow statuses (Pending, Paid, Refunded).',
       },
     ],
     productionDeliverables: [
-      'Automated tenant invoicing and payment tracking',
-      'Interactive maintenance ticket resolution portal',
-      'Digital lease agreement generation and storage',
-      'Comprehensive financial statements exportable to PDF/CSV',
-      'Tenant self-service portal for billing review',
+      'Public property discovery marketplace (nyumbalink.co.ke) with verified listing workflow',
+      'Multi-role property operations ERP (Landlord, Caretaker, Tenant, Admin)',
+      'Automated Safaricom M-Pesa rent reconciliation and instant digital receipts',
+      'Automated underpayment / overpayment discrepancy detection engine',
+      'Prioritized maintenance ticket resolution workflow with status tracking',
+      'Digital lease agreement repository with security deposit auditing',
+    ],
+  },
+  'hardware-pos': {
+    id: 'hardware-pos',
+    title: 'Hardware Store POS & Multi-Branch Inventory Engine',
+    category: 'Retail POS & Commercial Inventory · Production Client Contract',
+    pitch:
+      'An offline-first retail point-of-sale and inventory platform tailored for hardware suppliers, processing 100+ daily M-Pesa Till transactions with barcode checkout, fractional unit sales (pieces, meters, rolls, kg), and real-time stock alert thresholds.',
+    image: 'https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?q=80&w=1200',
+    demoUrl: 'https://github.com/jared-solutions',
+    githubUrl: 'https://github.com/jared-solutions',
+    stats: {
+      impact: '100+ Daily Transactions',
+      architecture: 'Offline-First POS & M-Pesa Till',
+      stack: 'React.js • Django REST • MySQL • Thermal ESC/POS',
+      status: 'Production Deployed',
+    },
+    challenge: {
+      context:
+        'Hardware stores handle thousands of fast-moving construction items across non-standard fractional units (wire by the meter, cement by the kg, timber by the foot). Manual paper cash registers caused stock shrinkage, slow counter queues, and frequent cash drawer discrepancies against customer M-Pesa Till payments.',
+      bottlenecks: [
+        'Fractional inventory calculation errors when dispensing cut lengths or weighted products.',
+        'Lengthy counter wait times due to manual product lookups and unintegrated price calculators.',
+        'Delayed cashier reconciliation between cash in drawer and Safaricom Till payment confirmations.',
+        'Stockouts of critical building supplies without automated minimum-threshold reorder alerts.',
+      ],
+    },
+    architectureFlow: [
+      {
+        step: '01',
+        label: 'Fast-Scan Cashier Terminal',
+        detail: 'Responsive React register with barcode scanner input, hotkey shortcuts, and real-time subtotal/tax computation.',
+      },
+      {
+        step: '02',
+        label: 'Fractional Unit & Inventory Engine',
+        detail: 'Django REST inventory service managing dynamic dimensional units (Piece, Kg, Meters, Rolls) with atomic stock decrements.',
+      },
+      {
+        step: '03',
+        label: 'Safaricom M-Pesa Till Reconciliation',
+        detail: 'Native Till integration reconciling mobile payments against counter sale IDs in real time.',
+      },
+      {
+        step: '04',
+        label: 'Thermal ESC/POS & Accounting Ledger',
+        detail: 'Instant receipt generation for thermal slip printers and automated end-of-day profit/loss ledger calculations.',
+      },
+    ],
+    engineeringHighlights: [
+      {
+        title: 'High-Speed Atomic Inventory Decrements',
+        description:
+          'Counter rushes with multiple sales clerks must never trigger negative inventory or concurrency collisions.',
+        implementation:
+          'Implemented database transaction boundaries (select_for_update) wrapping checkout batches to atomically decrement warehouse stock balances.',
+      },
+      {
+        title: 'Fractional Dimensional Unit Conversion',
+        description:
+          'Suppliers ship products in bulk rolls or bags, but customers purchase custom fractional cuts.',
+        implementation:
+          'Engineered a unit-conversion data model supporting decimal precision for rolls, meters, and kilograms with automated stock deduction.',
+      },
+      {
+        title: 'Multi-Channel Cashier Auditing',
+        description:
+          'Store owners require clear separation between cash drawers, card payments, and M-Pesa Till receipts.',
+        implementation:
+          'Structured double-entry payment logging that tallies independent settlement channels and flags any drawer discrepancies at end of shift.',
+      },
+    ],
+    productionDeliverables: [
+      'High-speed cashier POS interface with barcode scanner compatibility',
+      'Fractional unit inventory management (Pieces, Meters, Rolls, Kg)',
+      'Safaricom M-Pesa Buy Goods Till payment reconciliation',
+      'Automated low-stock reorder thresholds and depletion alerts',
+      'Thermal receipt printing engine (ESC/POS compatible)',
+      'Daily sales, expenses, and gross margin reporting dashboard',
+    ],
+  },
+  'sacco-system': {
+    id: 'sacco-system',
+    title: 'Core Banking & SACCO Financial Ledger',
+    category: 'Fintech & Cooperative Banking · Enterprise Architecture',
+    pitch:
+      'Double-entry financial accounting ledger for Savings and Credit Cooperatives (SACCOs), engineered with ACID transaction isolation, member dividend distribution models, loan amortization schedules, and automated audit logging.',
+    image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1200',
+    githubUrl: 'https://github.com/jared-solutions',
+    stats: {
+      impact: '100% ACID Reconciliation',
+      architecture: 'Spring Core & HikariCP',
+      stack: 'Spring Boot (Java) • React • MySQL 8.0 • REST',
+      status: 'Production Architecture',
+    },
+    challenge: {
+      context:
+        'SACCO institutions require strict regulatory compliance (SASRA standards), error-free dividend calculations, and zero-tolerance for balance discrepancies across member savings accounts.',
+      bottlenecks: [
+        'Manual member loan interest amortization calculations prone to compounding errors.',
+        'Slow end-of-month dividend distribution processing across thousands of member share ledgers.',
+        'Audit trail vulnerabilities in unauthenticated legacy financial databases.',
+      ],
+    },
+    architectureFlow: [
+      {
+        step: '01',
+        label: 'Member KYC & Account Service',
+        detail: 'Digital member onboarding with national ID verification, account tiering, and share capital registration.',
+      },
+      {
+        step: '02',
+        label: 'Double-Entry Accounting Ledger',
+        detail: 'Immutable ledger where every debit strictly equals credit across member savings and loan accounts.',
+      },
+      {
+        step: '03',
+        label: 'Loan Amortization & Repayment Engine',
+        detail: 'Automated reducing-balance and flat-rate interest calculations with M-Pesa B2C disbursement hooks.',
+      },
+      {
+        step: '04',
+        label: 'Regulatory Audit & Statement Generator',
+        detail: 'Exportable SASRA-compliant audit logs, member account statements, and annual dividend distributions.',
+      },
+    ],
+    engineeringHighlights: [
+      {
+        title: 'Strict ACID Double-Entry Ledger Implementation',
+        description:
+          'Financial deposits and withdrawals must maintain immutable mathematical parity across accounts.',
+        implementation:
+          'Utilized Spring Boot declarative transaction management (@Transactional isolation=SERIALIZABLE) with HikariCP connection pooling to enforce atomicity.',
+      },
+      {
+        title: 'High-Performance Dividend Distribution Batching',
+        description:
+          'Annual profit-sharing distributions across thousands of member shares require scalable batch processing.',
+        implementation:
+          'Built cursor-based batch pipelines in Spring Boot calculating weighted member shares and crediting savings accounts within minutes.',
+      },
+    ],
+    productionDeliverables: [
+      'Double-entry member savings and share capital accounting engine',
+      'Reducing-balance loan amortization and scheduled deduction module',
+      'Automated M-Pesa B2C loan disbursement integration',
+      'SASRA-compliant audit logging and regulatory statement exports',
+    ],
+  },
+  'car-hire': {
+    id: 'car-hire',
+    title: 'FleetFlow — Vehicle Rental & Logistics Dispatch Engine',
+    category: 'Logistics & Fleet Operations · Full-Stack Platform',
+    pitch:
+      'Fleet operations and vehicle rental booking platform featuring real-time availability calendars, automated security deposit holding, GPS mileage log audits, and driver assignment workflows.',
+    image: 'https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=1200',
+    githubUrl: 'https://github.com/jared-solutions',
+    stats: {
+      impact: 'Sub-Second Dispatch Matrix',
+      architecture: 'Async Queue & Booking Matrix',
+      stack: 'Node.js • Express • React • MySQL',
+      status: 'Production Architecture',
+    },
+    challenge: {
+      context:
+        'Car hire agencies deal with double-booking risks during peak holiday seasons, uncollected security damage deposits, and untracked maintenance cycles across scattered fleet vehicles.',
+      bottlenecks: [
+        'Concurrent booking collisions on high-demand premium SUVs.',
+        'Delayed vehicle turnarounds due to manual check-out vehicle damage inspection forms.',
+        'Untracked oil change and tire rotation schedules leading to unexpected vehicle breakdowns.',
+      ],
+    },
+    architectureFlow: [
+      {
+        step: '01',
+        label: 'Vehicle Inventory & Rate Matrix',
+        detail: 'Fleet catalog displaying daily rental tiers, fuel policies, and insurance packages.',
+      },
+      {
+        step: '02',
+        label: 'Dynamic Slot Reservation Engine',
+        detail: 'Calendar grid locking selected vehicles for reserved date spans with instant security deposit authorization.',
+      },
+      {
+        step: '03',
+        label: 'Digital Handover & Vehicle Inspection',
+        detail: 'Mobile checklist with pre-trip odometer reading, fuel level, and condition photo uploads.',
+      },
+      {
+        step: '04',
+        label: 'Maintenance & Service Scheduling',
+        detail: 'Automated service warnings triggered by cumulative odometer mileage increments.',
+      },
+    ],
+    engineeringHighlights: [
+      {
+        title: 'Zero-Collision Date Range Reservation Lock',
+        description:
+          'Preventing two customers from booking overlapping rental windows for the same vehicle.',
+        implementation:
+          'Implemented SQL date overlap query constraints paired with Redis distributed locks during checkout processing.',
+      },
+    ],
+    productionDeliverables: [
+      'Interactive fleet booking calendar with real-time vehicle status indicators',
+      'Automated security deposit pre-authorization and refund workflow',
+      'Mobile-responsive vehicle digital inspection and hand-off checklist',
+      'Odometer-triggered fleet maintenance reminder system',
+    ],
+  },
+  'spa-salon': {
+    id: 'spa-salon',
+    title: 'AuraCare — Multi-Branch Salon & Service Booking Engine',
+    category: 'Service Booking & Operations · Enterprise Web Platform',
+    pitch:
+      'Enterprise booking and service operations platform for wellness salons and aesthetic clinics. Features real-time stylist slot calendar locking, automated SMS appointment reminders, service commission splitting, and consumables inventory tracking.',
+    image: 'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?q=80&w=1200',
+    githubUrl: 'https://github.com/jared-solutions',
+    stats: {
+      impact: '99.8% Booking Reliability',
+      architecture: 'Slot Concurrency & SMS Engine',
+      stack: 'React.js • Django REST • MySQL • SMS Gateway',
+      status: 'Production Architecture',
+    },
+    challenge: {
+      context:
+        'High-end wellness clinics and salon chains face high client no-show rates, double-booked specialist stylists, and manual commission disputes at the end of the month.',
+      bottlenecks: [
+        'Customer no-shows causing idle specialist chair time and revenue loss.',
+        'Overlapping appointment bookings during peak evening and weekend rush hours.',
+        'Lack of automated stylist commission calculations based on tiered service packages.',
+      ],
+    },
+    architectureFlow: [
+      {
+        step: '01',
+        label: 'Service Menu & Specialist Selection',
+        detail: 'Interactive treatment catalog with duration estimates, pricing tiers, and specialist portfolios.',
+      },
+      {
+        step: '02',
+        label: 'Real-Time Slot Calendar Lock',
+        detail: 'Atomic time slot booking preventing double-booking across salon chairs and aesthetic rooms.',
+      },
+      {
+        step: '03',
+        label: 'Automated SMS Reminders & M-Pesa Deposit',
+        detail: 'Scheduled SMS notifications sent 24h and 2h prior to appointment with optional booking deposit.',
+      },
+      {
+        step: '04',
+        label: 'Staff Commission & Consumable Inventory',
+        detail: 'Automatic service revenue split calculation and inventory deduction for treatment products.',
+      },
+    ],
+    engineeringHighlights: [
+      {
+        title: 'Stylist Schedule Concurrency Protection',
+        description:
+          'Ensuring specialist time slots cannot be simultaneously confirmed by two competing online clients.',
+        implementation:
+          'Engineered temporary 10-minute pessimistic lock holds on time slots during checkout, automatically releasing on cart abandonment.',
+      },
+    ],
+    productionDeliverables: [
+      'Multi-specialist appointment booking interface with calendar visualization',
+      'Automated transactional SMS reminder system reducing no-shows',
+      'Stylist commission calculation and payroll summary engine',
+      'Treatment consumables stock tracking with depletion warnings',
     ],
   },
 };
@@ -399,7 +677,7 @@ const ProjectDetail: React.FC = () => {
   const [project, setProject] = useState<CaseStudy>(defaultProjectFallback);
 
   useEffect(() => {
-    const lookupKey = id === 'mkulima' ? 'poultryops' : id;
+    const lookupKey = id === 'mkulima' ? 'poultryops' : id === 'rentconnect' ? 'nyumbalink' : id === 'gym-system' ? 'hardware-pos' : id;
     if (lookupKey && caseStudies[lookupKey]) {
       setProject(caseStudies[lookupKey]);
     } else {

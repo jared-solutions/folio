@@ -146,11 +146,18 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
             <span>PoultryOps — Commercial Poultry ERP & AgTech SaaS</span>
           </CommandItem>
           <CommandItem
-            onSelect={() => runCommand(() => navigate("/projects/rentconnect"))}
+            onSelect={() => runCommand(() => navigate("/projects/nyumbalink"))}
             className="cursor-pointer"
           >
             <FileCode2 className="mr-2 h-4 w-4 text-indigo-400" />
-            <span>RentConnect — Real-time Property Platform</span>
+            <span>NyumbaLink — Marketplace & Automated Rent ERP</span>
+          </CommandItem>
+          <CommandItem
+            onSelect={() => runCommand(() => navigate("/projects/hardware-pos"))}
+            className="cursor-pointer"
+          >
+            <FileCode2 className="mr-2 h-4 w-4 text-orange-400" />
+            <span>Hardware Store POS & Multi-Branch Inventory</span>
           </CommandItem>
         </CommandGroup>
 
